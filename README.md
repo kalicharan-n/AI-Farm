@@ -49,11 +49,24 @@ Developing IOT Based Intelligent Farm- For Better Irrigation, Crop Yield and Dis
  
  ## Software/Access Requirements
  
- * ![IBM developer account](https://cloud.ibm.com/login)
-  ** IBM Visual recogniztion API 
-  ** IBM Watson Services
+ * [IBM developer account](https://cloud.ibm.com/login)
+ * IBM Visual recogniztion service 
+ * IBM Watson Services(Auto AI, machine learning)
  * Node Red
- * ![Twlio](https://www.twilio.com/) API access- for SMS services 
- * ![IRRISAT](https://irrisat-cloud.appspot.com/api) API acccess- To get evapotranspiration rate for te given lattitude and longitude
- * ![OpenWeather](https://openweathermap.org/api) API access- To retrieve weather informations (current weather, probability of precipitation and forecasting)
+ * [Twlio](https://www.twilio.com/) API access- for SMS services 
+ * [IRRISAT](https://irrisat-cloud.appspot.com/api) API acccess- To get evapotranspiration rate for te given lattitude and longitude
+ * [OpenWeather](https://openweathermap.org/api) API access- To retrieve weather informations (current weather, probability of precipitation and forecasting)
  
+## Circuit Setup
+
+ESP8266 Setup
+
+Here we are using two analog sensors(Soil moisture and Rain sensors). But, ESP8266 module has only one analog input (A0). So I Have connected the voltage pin of both sensors into data pins(D5,D6) to power up the sensors in run time. This will also reduce the total power consumption by the circuit.
+
+![ESP8266 Circuit](ESP8266Circuit_Sensor.PNG)
+
+ESP32CAM Setup:
+
+Connect IO0 and GND pins while uploading the code, and remove the connection after uploading the code.
+
+![ESP32CAM Circuit](https://www.elementzonline.com/image/catalog/Blog_images/esp32-CAM/esp32_ttl.png)
