@@ -75,6 +75,7 @@ Connect IO0 and GND pins while uploading the code, and remove the connection aft
 ### Actual Setup Images
 
 ![setup](/Images/RawSetupImages/setup.png)
+
 ![soil](/Images/RawSetupImages/soil.png)
 ![dht](/Images/RawSetupImages/dht.png)
 
