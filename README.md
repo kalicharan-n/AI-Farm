@@ -77,7 +77,7 @@ Connect IO0 and GND pins while uploading the code, and remove the connection aft
 ### Upload the sketch to ESP8266
 Upload the source file in the /Src/ESP8266/ folder to your ESP8266 device using Arduino IDE
 Make sure to update the below lines with your details
-'''
+```
 #define MQTT_HOST "<APPID>.messaging.internetofthings.ibmcloud.com"
 #define MQTT_PORT 1883
 #define MQTT_DEVICEID "d:<APPID>:<DEVICENAME>:<DEVICEID>"
@@ -88,28 +88,37 @@ Make sure to update the below lines with your details
  
 char ssid[] = "<>"; // your network SSID (name)
 char pass[] = "<>"; // your network password
-'''
+```
 ## Development/Code setup
 
 ### Upload the sketch to ESP32CAM
 Upload the source file in the /Src/ESP32CAM/ folder to your ESP32CAM device using Arduino IDE
 Ind addtion to above MQTT informations, you need to update the below IBM clodant storage informations
-'''
+```
 #define api_key="<api key>" //ibm clodant storage API key to get IAM token
 #define end_point="" //IBM object storage endpoint to store image
- 
-'''
+```
 ### Setting Up Node Red
 
 Import all the node red flows in the folder 'NodeRedFlows' into your NodeRed. Once imported, make sure to install/ update the Twilio, watson and openweather API keys.
 
 If you imported everything correctly, you should see the below pages in your node red application.(Best viewd in mobile phone)
 
-## Home Page
+#### Home Page
 ![home](/Images/UISample/homepage.png)
-## Smart Irrigation Control Page
+#### Smart Irrigation Control Page
 ![irrigation](/Images/UISample/irrigation.png)
-## Historical data Page
+#### Historical data Page
 ![history](/Images/UISample/histrical.png)
-## Settings Page
+#### Settings Page
+You can update your basic informations in the below screen
 ![Settings](/Images/UISample/settings.png)
+
+ ## Planned Update for future
+  * Current solution is work with only one plot. Next upgrade will handle more number of sensors and devices.
+  * Improve the water savings by analyzing future rain forecasts
+  * Add the ability to IOT devices to decide the farm/irrigation control by communicating each other in the same network, to address any critical problem(like our spine)
+  * Predicting the crop yield based on historical data set and help the farmer to pick next crop based on yield and crop rotation
+  * Flood and Hurricane management/alert system
+  * Current solution only work for 'Corn'. This will be further extended to all other crops in incremental manner
+  * OTA(Over The Air) code updates from IBM cloud to IOT devices for any patches- Currently, for any software update user need to connect to the devices manually using laptop. So it will take lot of time in case if there are more IOT nodes availabe in the same farm
