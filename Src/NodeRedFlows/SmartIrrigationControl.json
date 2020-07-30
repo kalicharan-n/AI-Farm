@@ -1,0 +1,2206 @@
+[
+    {
+        "id": "1ffdf1.e113f20f",
+        "type": "tab",
+        "label": "SmartIrrigationControl",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d1a25142.fec65",
+        "type": "mqtt in",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "topic": "iot-2/type/+/id/+/evt/+/fmt/json",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8b982f34.bc5b7",
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "3ec3df12.466f",
+                "9f8c7d91.dac86",
+                "ffa50c0c.44fa7",
+                "1bae8796.8eed78",
+                "3676a478.8f981c",
+                "a08fea5c.56f188",
+                "cb19e1f0.187ff"
+            ]
+        ]
+    },
+    {
+        "id": "b8c91af3.c49b58",
+        "type": "debug",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 430,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "91784c0b.ec4e4",
+        "type": "debug",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "65720dd3.213e64",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "First Irrigation at 6AM",
+        "topic": "6",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "00 06 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 820,
+        "wires": [
+            [
+                "c127b192.7b519"
+            ]
+        ]
+    },
+    {
+        "id": "3ec3df12.466f",
+        "type": "change",
+        "z": "1ffdf1.e113f20f",
+        "name": "get Soil Moisture",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.soilMoist",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 320,
+        "wires": [
+            [
+                "36941c41.b84e14"
+            ]
+        ]
+    },
+    {
+        "id": "36941c41.b84e14",
+        "type": "ui_gauge",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "group": "a9cfc27c.f4fdf",
+        "order": 2,
+        "width": "4",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Live Soil Moisture",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 710,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "9f8c7d91.dac86",
+        "type": "change",
+        "z": "1ffdf1.e113f20f",
+        "name": "get Rain",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.rain",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 420,
+        "wires": [
+            [
+                "40dffe0a.fc038"
+            ]
+        ]
+    },
+    {
+        "id": "40dffe0a.fc038",
+        "type": "mqtt out",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "topic": "iot-2/type/ESP8266/id/dev01/cmd/display/fmt/json",
+        "qos": "",
+        "retain": "",
+        "broker": "8b982f34.bc5b7",
+        "x": 1090,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "7bde0845.fe4f18",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "Water plant at 5.30",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "30 05 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 500,
+        "wires": [
+            [
+                "fb0977a3.87b028"
+            ]
+        ]
+    },
+    {
+        "id": "fb0977a3.87b028",
+        "type": "openweathermap",
+        "z": "1ffdf1.e113f20f",
+        "name": "Current Weather",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Coimbatore",
+        "country": "India",
+        "language": "en",
+        "x": 160,
+        "y": 580,
+        "wires": [
+            [
+                "92091932.469a88"
+            ]
+        ]
+    },
+    {
+        "id": "e897eae4.594a98",
+        "type": "debug",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 750,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "92091932.469a88",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "Format current data",
+        "func": "msg.location = {\n       lat:msg.location.lat,\n       lon:msg.location.lon,\n       sunrise:timeConvert(msg.payload.sunrise+msg.data.timezone),\n       sunset:timeConvert(msg.payload.sunset+msg.data.timezone)\n    } ;\n\nfunction timeConvert(UNIX_timestamp){\n  var a = new Date(UNIX_timestamp * 1000);\n  var hour = a.getHours();\n  var suffix = \" am\";\n  if (hour >= 12) {\n    hour = hour - 12;\n    suffix = \" pm\";\n  }\n  if (hour === 0) {\n    hour = 12;\n  }\n  var min = a.getMinutes();\n  if (min < 10) {min = \"0\" + min;}\n  return hour + ':' + min + suffix;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 580,
+        "wires": [
+            [
+                "f012d8ad.84b528"
+            ]
+        ]
+    },
+    {
+        "id": "f012d8ad.84b528",
+        "type": "openweathermap",
+        "z": "1ffdf1.e113f20f",
+        "name": "Current Weather",
+        "wtype": "onecall",
+        "lon": "",
+        "lat": "",
+        "city": "",
+        "country": "",
+        "language": "en",
+        "x": 600,
+        "y": 580,
+        "wires": [
+            [
+                "e897eae4.594a98",
+                "8d6e1b31.abfed8"
+            ]
+        ]
+    },
+    {
+        "id": "80a212b.66972f",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "Calcualte Running Time",
+        "func": "var Eto=msg.Eto;\n//1.0 for lawn, For water loving shrubs use .80, for average water use shrubs use 0.5, for low water use shrubs use 0.3.\nvar PF=0.5;\nvar SF=msg.area;//area of sq feet\nvar IE=0.75;//Irrigation Efficiency\nvar watReq=3.78541 * ((Eto * PF * SF * 0.62 ) / IE);\n\n//water pumb efficiency\nvar flow_rate=msg.capacity //li per min\nvar tim_req=watReq*flow_rate;\nmsg.payload=tim_req/4;\nmsg.enabled=true;\nglobal.set(\"animvalue6\",true);\nglobal.set(\"g_irrigation_time\",tim_req/4);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 590,
+        "y": 860,
+        "wires": [
+            [
+                "91784c0b.ec4e4",
+                "40dffe0a.fc038",
+                "955aa6d.5066a58",
+                "c538abd2.783188",
+                "8f68d759.a101e8",
+                "f8e680b8.7e077",
+                "b6d5a78e.792d68"
+            ]
+        ]
+    },
+    {
+        "id": "c127b192.7b519",
+        "type": "http request",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "https://irrisat-cloud.appspot.com/_ah/api/irrisat/v1/services/forecast/evapotranspiration/11/77",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 290,
+        "y": 860,
+        "wires": [
+            [
+                "8373636d.81073",
+                "d4047933.4d5a78"
+            ]
+        ]
+    },
+    {
+        "id": "b0ef0f14.4bd93",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "Irrigation at 11AM",
+        "topic": "11",
+        "payload": "11 AM",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "00 11 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 940,
+        "wires": [
+            [
+                "331b29dc.dde756",
+                "b9b9f6.6e5a6608",
+                "b705fc9b.a95ee"
+            ]
+        ]
+    },
+    {
+        "id": "331b29dc.dde756",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "Calcualte Running Time",
+        "func": "msg.payload=global.get(\"g_irrigation_time\");\nmsg.enabled=true;\nmsg.animvalue=true;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 940,
+        "wires": [
+            [
+                "40dffe0a.fc038",
+                "da8bf627.633aa8",
+                "b6d5a78e.792d68"
+            ]
+        ]
+    },
+    {
+        "id": "cd46b33b.3e075",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "Irrigation at 2PM",
+        "topic": "2",
+        "payload": "2 PM",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "00 14 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 980,
+        "wires": [
+            [
+                "331b29dc.dde756",
+                "b9b9f6.6e5a6608",
+                "aa9c5ce1.7a8ef"
+            ]
+        ]
+    },
+    {
+        "id": "91c5e94.381ae18",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "Irrigation at 7PM",
+        "topic": "7",
+        "payload": "7 PM",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "00 19 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 1020,
+        "wires": [
+            [
+                "331b29dc.dde756",
+                "b9b9f6.6e5a6608",
+                "64107790.c9c688"
+            ]
+        ]
+    },
+    {
+        "id": "ea3f1296.b8d54",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "topic": "",
+        "payload": "Next watering planned at 8.5 PM",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 470,
+        "y": 1000,
+        "wires": [
+            [
+                "c538abd2.783188"
+            ]
+        ]
+    },
+    {
+        "id": "c538abd2.783188",
+        "type": "ui_switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "label": "<font color=\"#CF055E\"><b>Manual Override</b></font>",
+        "tooltip": "",
+        "group": "a9cfc27c.f4fdf",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-toggle-on fa-2x",
+        "oncolor": "#CF055E",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-toggle-off fa-2x",
+        "offcolor": "#CF055E",
+        "x": 830,
+        "y": 1180,
+        "wires": [
+            [
+                "40dffe0a.fc038",
+                "3d7a0f6a.f13db",
+                "651f34fd.995e8c"
+            ]
+        ]
+    },
+    {
+        "id": "f8e680b8.7e077",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<font color=\"#CF055E\"><i class=\"fa fa-cog fa-spin fa-3x fa-fw\"></i></font>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 940,
+        "wires": [
+            [
+                "6acfe545.ab225c"
+            ]
+        ]
+    },
+    {
+        "id": "6acfe545.ab225c",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 7,
+        "width": "3",
+        "height": "1",
+        "name": "6 AM Running Status",
+        "label": "<font color=\"#02010D\"><b>Running Status</b></font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 1620,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "8f68d759.a101e8",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue6",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1000,
+        "wires": [
+            [
+                "f8e680b8.7e077"
+            ]
+        ]
+    },
+    {
+        "id": "2037a1c1.b812fe",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<i class=\"fa fa-cog fa-3x\" aria-hidden=\"true\"></i>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 980,
+        "wires": [
+            [
+                "6acfe545.ab225c"
+            ]
+        ]
+    },
+    {
+        "id": "10f12bdc.3a5484",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue6",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1040,
+        "wires": [
+            [
+                "2037a1c1.b812fe"
+            ]
+        ]
+    },
+    {
+        "id": "e4210d92.58527",
+        "type": "twilio out",
+        "z": "1ffdf1.e113f20f",
+        "twilio": "309e4935.dbdd56",
+        "twilioType": "sms",
+        "url": "",
+        "number": "+91 99948 68810",
+        "name": "sms",
+        "x": 1510,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "955aa6d.5066a58",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "twilio message composing",
+        "func": "\nvar mstr=\"Hi Farmer,\\nGood Morning! Your water pumb has been started automatically by your E-Farm Manager at 6AM today\";\nvar mstr1=\"\\nWatering scheduled for an another \" + (Math.round(((global.get(\"g_irrigation_time\")/60) + Number.EPSILON) * 100) / 100) + \" hrs\";\nvar mstr2=\"visit https://ai-farm-app.eu-gb.mybluemix.net/ui/ for more details. \\nThank You!\"\nmsg.payload=mstr+mstr1+mstr2;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1230,
+        "y": 760,
+        "wires": [
+            [
+                "e4210d92.58527"
+            ]
+        ]
+    },
+    {
+        "id": "9f3b99c6.73b2b8",
+        "type": "link out",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "links": [
+            "6f4b3997.fda928"
+        ],
+        "x": 695,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "b9b9f6.6e5a6608",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "twilio message composing",
+        "func": "\nvar mstr=\"Hi Farmer,\\nGood Morning! Your water pumb has been started automatically by your E-Farm Manager at \"+ msg.payload +\" today\";\nvar mstr1=\"\\nWatering scheduled for an another \" + (Math.round(((global.get(\"g_irrigation_time\")/60) + Number.EPSILON) * 100) / 100) + \" hrs\";\nvar mstr2=\"visit https://ai-farm-app.eu-gb.mybluemix.net/ui/ for more details. \\nThank You!\"\nmsg.payload=mstr+mstr1+mstr2;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 1040,
+        "wires": [
+            [
+                "9f3b99c6.73b2b8"
+            ]
+        ]
+    },
+    {
+        "id": "6f4b3997.fda928",
+        "type": "link in",
+        "z": "1ffdf1.e113f20f",
+        "name": "sms",
+        "links": [
+            "9f3b99c6.73b2b8"
+        ],
+        "x": 1435,
+        "y": 760,
+        "wires": [
+            [
+                "e4210d92.58527"
+            ]
+        ]
+    },
+    {
+        "id": "6daf3980.9da918",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 9,
+        "width": "3",
+        "height": "2",
+        "name": "6 AM Irrigation status",
+        "label": "<font color=\"#02010D\"><b>Irrigation Status</b></font>",
+        "format": "{{msg.status}}",
+        "layout": "col-center",
+        "x": 1320,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ffa50c0c.44fa7",
+        "type": "change",
+        "z": "1ffdf1.e113f20f",
+        "name": "get 6 status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.mstatus6",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 360,
+        "wires": [
+            [
+                "63e77627.fa0298"
+            ]
+        ]
+    },
+    {
+        "id": "1bae8796.8eed78",
+        "type": "change",
+        "z": "1ffdf1.e113f20f",
+        "name": "get 11",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.mstatus6",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3676a478.8f981c",
+        "type": "change",
+        "z": "1ffdf1.e113f20f",
+        "name": "get 11 status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.mstatus7",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 400,
+        "wires": [
+            [
+                "1b2874b9.588feb"
+            ]
+        ]
+    },
+    {
+        "id": "bb02c801.49c9e8",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 13,
+        "width": "3",
+        "height": "2",
+        "name": "11 AM Irrigation status",
+        "label": "<font color=\"#02010D\"><b>Irrigation Status</b></font>",
+        "format": "{{msg.status}}",
+        "layout": "col-center",
+        "x": 1280,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "a08fea5c.56f188",
+        "type": "change",
+        "z": "1ffdf1.e113f20f",
+        "name": "get 2 status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.mstatus2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 440,
+        "wires": [
+            [
+                "f3a48a3d.fc5c68"
+            ]
+        ]
+    },
+    {
+        "id": "9c67d910.398598",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 17,
+        "width": "3",
+        "height": "2",
+        "name": "2 PM Irrigation status",
+        "label": "<font color=\"#02010D\"><b>Irrigation Status</b></font>",
+        "format": "{{msg.status}}",
+        "layout": "col-center",
+        "x": 1280,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "cb19e1f0.187ff",
+        "type": "change",
+        "z": "1ffdf1.e113f20f",
+        "name": "get 7 status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.mstatus6",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 480,
+        "wires": [
+            [
+                "5f9c7f7f.dfe72"
+            ]
+        ]
+    },
+    {
+        "id": "69e58e7d.cd549",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 21,
+        "width": "3",
+        "height": "2",
+        "name": "7 PM Irrigation status",
+        "label": "<font color=\"#02010D\"><b>Irrigation Status</b></font>",
+        "format": "{{msg.status}}",
+        "layout": "col-center",
+        "x": 1240,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "5bdbde90.5c965",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue11",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1080,
+        "wires": [
+            [
+                "f5406429.ada808"
+            ]
+        ]
+    },
+    {
+        "id": "ba4abe7c.90f46",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue11",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1120,
+        "wires": [
+            [
+                "94b621b7.e5029"
+            ]
+        ]
+    },
+    {
+        "id": "f5406429.ada808",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<font color=\"#CF055E\"><i class=\"fa fa-cog fa-spin fa-3x fa-fw\"></i></font>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 1020,
+        "wires": [
+            [
+                "c00e0549.943158"
+            ]
+        ]
+    },
+    {
+        "id": "94b621b7.e5029",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<i class=\"fa fa-cog fa-3x\" aria-hidden=\"true\"></i>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 1060,
+        "wires": [
+            [
+                "c00e0549.943158"
+            ]
+        ]
+    },
+    {
+        "id": "c00e0549.943158",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 12,
+        "width": "3",
+        "height": "1",
+        "name": "11 AM Running Status",
+        "label": "<font color=\"#02010D\"><b>Running Status</b></font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1620,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "412b15a.45743ec",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "6 switch",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 1040,
+        "wires": [
+            [
+                "8f68d759.a101e8",
+                "10f12bdc.3a5484"
+            ]
+        ]
+    },
+    {
+        "id": "4b9f1311.a8f51c",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "11 switch",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "11",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 1080,
+        "wires": [
+            [
+                "5bdbde90.5c965",
+                "ba4abe7c.90f46"
+            ]
+        ]
+    },
+    {
+        "id": "379fb7c5.a889f8",
+        "type": "ui_gauge",
+        "z": "1ffdf1.e113f20f",
+        "name": "6 AM IRRIGATION",
+        "group": "a9cfc27c.f4fdf",
+        "order": 6,
+        "width": "3",
+        "height": "3",
+        "gtype": "wave",
+        "title": "<font color=\"#0B1CD5\"><b>6 AM IRRIGATION</b></font>",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1270,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "63e77627.fa0298",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nmsg={payload:output[0],status:output[1],total:output[2],pending:output[3]};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 850,
+        "y": 180,
+        "wires": [
+            [
+                "6daf3980.9da918",
+                "90ae5b03.d3d8a8",
+                "e548bfe.3bd684",
+                "db48e199.c0d57"
+            ]
+        ]
+    },
+    {
+        "id": "8fc49998.2ab4d8",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "topic": "",
+        "payload": "85,rain,53,23",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 690,
+        "y": 120,
+        "wires": [
+            [
+                "63e77627.fa0298"
+            ]
+        ]
+    },
+    {
+        "id": "f275cd92.26e35",
+        "type": "ui_gauge",
+        "z": "1ffdf1.e113f20f",
+        "name": "11 AM IRRIGATION",
+        "group": "a9cfc27c.f4fdf",
+        "order": 11,
+        "width": "3",
+        "height": "3",
+        "gtype": "wave",
+        "title": "<font color=\"#0B1CD5\"><b>11 AM IRRIGATION</b></font>",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1330,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1b2874b9.588feb",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nmsg={payload:output[0],status:output[1],total:output[2],pending:output[3]};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 850,
+        "y": 280,
+        "wires": [
+            [
+                "bb02c801.49c9e8",
+                "8eb114ce.d32428",
+                "a8f52715.7faca8",
+                "a77ad0e9.9ebc1"
+            ]
+        ]
+    },
+    {
+        "id": "ad99661.c8be298",
+        "type": "ui_gauge",
+        "z": "1ffdf1.e113f20f",
+        "name": "2 PM IRRIGATION",
+        "group": "a9cfc27c.f4fdf",
+        "order": 15,
+        "width": "3",
+        "height": "3",
+        "gtype": "wave",
+        "title": "<font color=\"#0B1CD5\"><b>2 PM IRRIGATION</b></font>",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1350,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f3a48a3d.fc5c68",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nmsg={payload:output[0],status:output[1],total:output[2],pending:output[3]};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 890,
+        "y": 380,
+        "wires": [
+            [
+                "9c67d910.398598",
+                "11bc49d6.9f5c06",
+                "35dff0ae.5445c",
+                "2679ea08.ea4896"
+            ]
+        ]
+    },
+    {
+        "id": "5f9c7f7f.dfe72",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nmsg={payload:output[0],status:output[1],total:output[2],pending:output[3]};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 930,
+        "y": 540,
+        "wires": [
+            [
+                "69e58e7d.cd549",
+                "5370a2a0.35b5ac",
+                "20e99b69.c05d94",
+                "23ba2746.4f0028"
+            ]
+        ]
+    },
+    {
+        "id": "6098076d.dcdd58",
+        "type": "ui_gauge",
+        "z": "1ffdf1.e113f20f",
+        "name": "7 PM IRRIGATION",
+        "group": "a9cfc27c.f4fdf",
+        "order": 19,
+        "width": "3",
+        "height": "3",
+        "gtype": "wave",
+        "title": "<font color=\"#0B1CD5\"><b>7 PM IRRIGATION</b></font>",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1330,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "737055cb.6d447c",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue2",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1160,
+        "wires": [
+            [
+                "ad5d944a.047558"
+            ]
+        ]
+    },
+    {
+        "id": "366eac2c.474494",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue2",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1200,
+        "wires": [
+            [
+                "47512eac.86fb9"
+            ]
+        ]
+    },
+    {
+        "id": "bfeb95f6.2ab188",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "2 switch",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 1140,
+        "wires": [
+            [
+                "737055cb.6d447c",
+                "366eac2c.474494"
+            ]
+        ]
+    },
+    {
+        "id": "ad5d944a.047558",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<font color=\"#CF055E\"><i class=\"fa fa-cog fa-spin fa-3x fa-fw\"></i></font>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 1100,
+        "wires": [
+            [
+                "cd01984e.4dadd8"
+            ]
+        ]
+    },
+    {
+        "id": "47512eac.86fb9",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<i class=\"fa fa-cog fa-3x\" aria-hidden=\"true\"></i>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 1140,
+        "wires": [
+            [
+                "cd01984e.4dadd8"
+            ]
+        ]
+    },
+    {
+        "id": "cd01984e.4dadd8",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 16,
+        "width": "3",
+        "height": "1",
+        "name": "2 PM Running Status",
+        "label": "<font color=\"#02010D\"><b>Running Status</b></font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1620,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "c260ce90.9e1a",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue7",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1240,
+        "wires": [
+            [
+                "2814db09.9f9b84"
+            ]
+        ]
+    },
+    {
+        "id": "eaa6b5cb.a52268",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "animvalue7",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 1280,
+        "wires": [
+            [
+                "f8826f2c.9644b"
+            ]
+        ]
+    },
+    {
+        "id": "46d1e0dc.e84dd",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "7 switch",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "7",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 1200,
+        "wires": [
+            [
+                "c260ce90.9e1a",
+                "eaa6b5cb.a52268"
+            ]
+        ]
+    },
+    {
+        "id": "2814db09.9f9b84",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<font color=\"#CF055E\"><i class=\"fa fa-cog fa-spin fa-3x fa-fw\"></i></font>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 1180,
+        "wires": [
+            [
+                "f8febe50.d7c54"
+            ]
+        ]
+    },
+    {
+        "id": "f8826f2c.9644b",
+        "type": "template",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<i class=\"fa fa-cog fa-3x\" aria-hidden=\"true\"></i>\n<span class=\"sr-only\">Loading...</span>",
+        "output": "str",
+        "x": 1420,
+        "y": 1220,
+        "wires": [
+            [
+                "f8febe50.d7c54"
+            ]
+        ]
+    },
+    {
+        "id": "f8febe50.d7c54",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 20,
+        "width": "3",
+        "height": "1",
+        "name": "7 PM Running Status",
+        "label": "<font color=\"#02010D\"><b>Running Status</b></font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1640,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "da8bf627.633aa8",
+        "type": "debug",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 450,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "b705fc9b.a95ee",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "global.set(\"animvalue11\",true);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aa9c5ce1.7a8ef",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "global.set(\"animvalue2\",true);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64107790.c9c688",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "global.set(\"animvalue7\",true);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90ae5b03.d3d8a8",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "100",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 60,
+        "wires": [
+            [
+                "8c6d206f.a1423"
+            ]
+        ]
+    },
+    {
+        "id": "8c6d206f.a1423",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "global.set(\"animvalue6\",false);\nmsg.topic=\"6\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1070,
+        "y": 60,
+        "wires": [
+            [
+                "b2419d1c.1c8ef"
+            ]
+        ]
+    },
+    {
+        "id": "8eb114ce.d32428",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "100",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 220,
+        "wires": [
+            [
+                "3b7984d4.d291ac"
+            ]
+        ]
+    },
+    {
+        "id": "3b7984d4.d291ac",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "global.set(\"animvalue11\",false);\nmsg.topic=\"11\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 280,
+        "wires": [
+            [
+                "b2419d1c.1c8ef"
+            ]
+        ]
+    },
+    {
+        "id": "527d804c.01ef2",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "global.set(\"animvalue2\",false);\nmsg.topic=\"2\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1230,
+        "y": 440,
+        "wires": [
+            [
+                "b2419d1c.1c8ef"
+            ]
+        ]
+    },
+    {
+        "id": "11bc49d6.9f5c06",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "100",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1050,
+        "y": 380,
+        "wires": [
+            [
+                "527d804c.01ef2"
+            ]
+        ]
+    },
+    {
+        "id": "d6ce0fcd.c641e",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "global.set(\"animvalue7\",false);\nmsg.topic=\"7\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1110,
+        "y": 540,
+        "wires": [
+            [
+                "b2419d1c.1c8ef"
+            ]
+        ]
+    },
+    {
+        "id": "5370a2a0.35b5ac",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "100",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 480,
+        "wires": [
+            [
+                "d6ce0fcd.c641e"
+            ]
+        ]
+    },
+    {
+        "id": "b2419d1c.1c8ef",
+        "type": "link out",
+        "z": "1ffdf1.e113f20f",
+        "name": "status completion",
+        "links": [
+            "e8fdc87b.d76cf8"
+        ],
+        "x": 1555,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e8fdc87b.d76cf8",
+        "type": "link in",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "links": [
+            "b2419d1c.1c8ef"
+        ],
+        "x": 520,
+        "y": 1260,
+        "wires": [
+            [
+                "c538abd2.783188",
+                "c08ba810.aba2f8",
+                "acbca89d.766dd8"
+            ]
+        ]
+    },
+    {
+        "id": "3d7a0f6a.f13db",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 1140,
+        "wires": [
+            [
+                "b3cb5727.dad7f8"
+            ]
+        ]
+    },
+    {
+        "id": "b3cb5727.dad7f8",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "if(global.get(\"animvalue6\")===true)\n{\n    global.set(\"animvalue6\",false);\n    msg.topic=\"6\";\n}\nelse if(global.get(\"animvalue11\")===true)\n{\n    global.set(\"animvalue11\",false);\n    msg.topic=\"11\";\n}\nelse if(global.get(\"animvalue2\")===true)\n{\n    global.set(\"animvalue2\",false);\n    msg.topic=\"2\";\n}\nelse if(global.get(\"animvalue7\")===true)\n{\n    global.set(\"animvalue7\",false);\n    msg.topic=\"7\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 870,
+        "y": 1040,
+        "wires": [
+            [
+                "412b15a.45743ec",
+                "4b9f1311.a8f51c",
+                "bfeb95f6.2ab188",
+                "46d1e0dc.e84dd",
+                "cbecbca0.a0c3d"
+            ]
+        ]
+    },
+    {
+        "id": "651f34fd.995e8c",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 1220,
+        "wires": [
+            [
+                "412b15a.45743ec",
+                "4b9f1311.a8f51c",
+                "bfeb95f6.2ab188",
+                "46d1e0dc.e84dd"
+            ]
+        ]
+    },
+    {
+        "id": "cbecbca0.a0c3d",
+        "type": "debug",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1090,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "b6d5a78e.792d68",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "send msg to anim",
+        "func": "msg.payload=true;\nmsg.enabled=true;\nmsg.animvalue=true;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 960,
+        "wires": [
+            [
+                "c538abd2.783188"
+            ]
+        ]
+    },
+    {
+        "id": "4397b3ed.edafec",
+        "type": "ui_text",
+        "z": "1ffdf1.e113f20f",
+        "group": "a9cfc27c.f4fdf",
+        "order": 3,
+        "width": "6",
+        "height": "3",
+        "name": "irrigation welcome message",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 1680,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "d276b25e.5a3e5",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "topic": "",
+        "payload": "Corn water use will fluctuate throughout the season depending on weather conditions. When corn does not receive enough water to meet evapotranspiration demands during the reproductive growth stages, significant reductions in yield can occur.",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 1350,
+        "y": 880,
+        "wires": [
+            [
+                "4397b3ed.edafec"
+            ]
+        ]
+    },
+    {
+        "id": "38410553.481b8a",
+        "type": "ui_ui_control",
+        "z": "1ffdf1.e113f20f",
+        "name": "Update tab",
+        "events": "all",
+        "x": 1490,
+        "y": 800,
+        "wires": [
+            [
+                "b408f9dd.bb9ba8"
+            ]
+        ]
+    },
+    {
+        "id": "b408f9dd.bb9ba8",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "msg.payload=\"Corn water use will fluctuate throughout the season depending on weather conditions. When corn does not receive enough water to meet evapotranspiration demands during the reproductive growth stages, significant reductions in yield can occur.\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1680,
+        "y": 820,
+        "wires": [
+            [
+                "4397b3ed.edafec"
+            ]
+        ]
+    },
+    {
+        "id": "6d4014b.9be24ec",
+        "type": "cloudant in",
+        "z": "1ffdf1.e113f20f",
+        "name": "Search",
+        "cloudant": "f8f580f2.69f01",
+        "database": "setupinfo",
+        "service": "ai-farm-app-cloudant-1593256399572-80225",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 220,
+        "y": 640,
+        "wires": [
+            [
+                "eddb9b4c.d9e848"
+            ]
+        ]
+    },
+    {
+        "id": "eddb9b4c.d9e848",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "Extract most recent record",
+        "func": "var msgs=[];\nvar tot_count=msg.payload.length;\n\nfor(var i=0;i<tot_count;i++)\n{\n    msgs.push({payload:msg.payload[i]});\n}\n\nvar bigval=msgs[0].payload.time;\nvar pos=0;\n\nfor(i=0;i<tot_count;i++)\n{\n    if(msgs[i].payload.time>bigval)\n    {\n        bigval=msgs[i].payload.time;\n        pos=i;\n    }\n}\nmsg={\n    area:msgs[pos].payload.area,\n    capacity:msgs[pos].payload.capacity,\n    Eto:msg.ET0\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 640,
+        "wires": [
+            [
+                "80a212b.66972f",
+                "b8c91af3.c49b58"
+            ]
+        ]
+    },
+    {
+        "id": "8373636d.81073",
+        "type": "debug",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 390,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "d4047933.4d5a78",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "Calcualte ET0",
+        "func": "msg.ET0=msg.payload.Daily[0].ET0;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 180,
+        "y": 700,
+        "wires": [
+            [
+                "6d4014b.9be24ec"
+            ]
+        ]
+    },
+    {
+        "id": "e548bfe.3bd684",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "rain",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 120,
+        "wires": [
+            [
+                "8c6d206f.a1423"
+            ]
+        ]
+    },
+    {
+        "id": "c08ba810.aba2f8",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "Format irrigation history",
+        "func": "msg.payload = {\n        time:     new Date().getTime(),\n        irriga_tim:msg.topic,\n        scheduled:msg.total,\n        completed_perc:msg.payload,\n        completed_tim: msg.pending,\n        status:msg.status\n    } ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88b734d5.6d1808",
+        "type": "cloudant out",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "cloudant": "",
+        "database": "irrigationhistory",
+        "service": "ai-farm-app-cloudant-1593256399572-80225",
+        "payonly": true,
+        "operation": "insert",
+        "x": 800,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "acbca89d.766dd8",
+        "type": "debug",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 550,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "a8f52715.7faca8",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "rain",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 340,
+        "wires": [
+            [
+                "3b7984d4.d291ac"
+            ]
+        ]
+    },
+    {
+        "id": "35dff0ae.5445c",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "rain",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 440,
+        "wires": [
+            [
+                "527d804c.01ef2"
+            ]
+        ]
+    },
+    {
+        "id": "20e99b69.c05d94",
+        "type": "switch",
+        "z": "1ffdf1.e113f20f",
+        "name": "if",
+        "property": "status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "rain",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 600,
+        "wires": [
+            [
+                "d6ce0fcd.c641e"
+            ]
+        ]
+    },
+    {
+        "id": "8d6e1b31.abfed8",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "msg.payload=\"0,Yet To Start,0,0\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 540,
+        "wires": [
+            [
+                "1b2874b9.588feb",
+                "f3a48a3d.fc5c68",
+                "5f9c7f7f.dfe72",
+                "63e77627.fa0298"
+            ]
+        ]
+    },
+    {
+        "id": "db48e199.c0d57",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var ccode=\"#F26A07\";\nif(msg.status==\"Completed\")\n{\n    ccode=\"#0CC0EE\";\n}\n\nmsg.ui_control = \n{\n    \"gtype\": \"wave\",\n\n    \"options\":{\n        \"circleColor\": ccode, \n        \"textColor\": \"#0A70D8\", \n        \"waveTextColor\": \"#E1F4F7\", \n        \"waveColor\": ccode, \n        \"circleThickness\":0.06, \n        \"textVertPosition\":0.4, \n        \"waveHeight\":0.08, \n        \"waveCount\":3\n    \n}\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1040,
+        "y": 160,
+        "wires": [
+            [
+                "379fb7c5.a889f8"
+            ]
+        ]
+    },
+    {
+        "id": "a77ad0e9.9ebc1",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var ccode=\"#F26A07\";\nif(msg.status==\"Completed\")\n{\n    ccode=\"#0CC0EE\";\n}\n\nmsg.ui_control = \n{\n    \"gtype\": \"wave\",\n\n    \"options\":{\n        \"circleColor\": ccode, \n        \"textColor\": \"#0A70D8\", \n        \"waveTextColor\": \"#E1F4F7\", \n        \"waveColor\": ccode, \n        \"circleThickness\":0.06, \n        \"textVertPosition\":0.4, \n        \"waveHeight\":0.08, \n        \"waveCount\":3\n    \n}\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1150,
+        "y": 340,
+        "wires": [
+            [
+                "f275cd92.26e35"
+            ]
+        ]
+    },
+    {
+        "id": "2679ea08.ea4896",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var ccode=\"#F26A07\";\nif(msg.status==\"Completed\")\n{\n    ccode=\"#0CC0EE\";\n}\n\nmsg.ui_control = \n{\n    \"gtype\": \"wave\",\n\n    \"options\":{\n        \"circleColor\": ccode, \n        \"textColor\": \"#0A70D8\", \n        \"waveTextColor\": \"#E1F4F7\", \n        \"waveColor\": ccode, \n        \"circleThickness\":0.06, \n        \"textVertPosition\":0.4, \n        \"waveHeight\":0.08, \n        \"waveCount\":3\n    \n}\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1170,
+        "y": 480,
+        "wires": [
+            [
+                "ad99661.c8be298"
+            ]
+        ]
+    },
+    {
+        "id": "23ba2746.4f0028",
+        "type": "function",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "func": "var ccode=\"#F26A07\";\nif(msg.status==\"Completed\")\n{\n    ccode=\"#0CC0EE\";\n}\n\nmsg.ui_control = \n{\n    \"gtype\": \"wave\",\n\n    \"options\":{\n        \"circleColor\": ccode, \n        \"textColor\": \"#0A70D8\", \n        \"waveTextColor\": \"#E1F4F7\", \n        \"waveColor\": ccode, \n        \"circleThickness\":0.06, \n        \"textVertPosition\":0.4, \n        \"waveHeight\":0.08, \n        \"waveCount\":3\n    \n}\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1150,
+        "y": 580,
+        "wires": [
+            [
+                "6098076d.dcdd58"
+            ]
+        ]
+    },
+    {
+        "id": "b661ef7.125ca1",
+        "type": "inject",
+        "z": "1ffdf1.e113f20f",
+        "name": "",
+        "topic": "",
+        "payload": "25,InProgess,53,23",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 690,
+        "y": 180,
+        "wires": [
+            [
+                "63e77627.fa0298"
+            ]
+        ]
+    },
+    {
+        "id": "8b982f34.bc5b7",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "ydxdnw.messaging.internetofthings.ibmcloud.com",
+        "port": "1883",
+        "clientid": "a:ydxdnw:ESP8266",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "a9cfc27c.f4fdf",
+        "type": "ui_group",
+        "z": "",
+        "name": "Smart Irrigation Control System",
+        "tab": "65e708fe.844098",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "309e4935.dbdd56",
+        "type": "twilio-api",
+        "z": "",
+        "name": "twlio",
+        "sid": "AC336ac9c7fb15d26694560af2d0588037",
+        "from": "+18168754836"
+    },
+    {
+        "id": "f8f580f2.69f01",
+        "type": "cloudant",
+        "z": "",
+        "host": "https://16ad429e-9d49-4534-afa9-7955a9981991-bluemix:b95ca428fb2cd18ae9106e393f14eb7c45d82fd58bb53c5a04f821607b0e268e@16ad429e-9d49-4534-afa9-7955a9981991-bluemix.cloudant.com",
+        "name": "cloudant-xh"
+    },
+    {
+        "id": "65e708fe.844098",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Irrigation",
+        "icon": "fa-cogs",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]

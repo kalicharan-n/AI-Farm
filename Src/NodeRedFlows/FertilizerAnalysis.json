@@ -1,0 +1,253 @@
+[
+  {
+    "id": "855e6c6f.e9ce5",
+    "type": "tab",
+    "label": "FertilizerAnalysis",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "d8bf650.e4cbe98",
+    "type": "inject",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "00 07 * * *",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 110,
+    "y": 180,
+    "wires": [
+      [
+        "668a9c2f.be1024"
+      ]
+    ]
+  },
+  {
+    "id": "76deabf7.61f9a4",
+    "type": "http request",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "method": "POST",
+    "ret": "obj",
+    "paytoqs": false,
+    "url": "https://iam.cloud.ibm.com/identity/token",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 310,
+    "y": 300,
+    "wires": [
+      [
+        "2a031a87.51e576",
+        "6eb745f2.b1913c"
+      ]
+    ]
+  },
+  {
+    "id": "668a9c2f.be1024",
+    "type": "function",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "func": "var apikey=\"a82b3bsRGO-rDf6T4tU-rgNsJhviDEvROq6czjajSgOj\";\nmsg.headers = {'Content-Type': 'application/x-www-form-urlencoded'};\nmsg.payload = { 'apikey' : apikey,'grant_type': 'urn:ibm:params:oauth:grant-type:apikey' };\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 120,
+    "y": 260,
+    "wires": [
+      [
+        "76deabf7.61f9a4"
+      ]
+    ]
+  },
+  {
+    "id": "1ed739d5.032cc6",
+    "type": "debug",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 770,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "123b9512.89093b",
+    "type": "http request",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "method": "POST",
+    "ret": "obj",
+    "paytoqs": false,
+    "url": "https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?url=https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/fruitbowl.jpg&version=2018-03-19&classifier_ids=DefaultCustomModel_774057262",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 330,
+    "y": 420,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "859cbf54.36df3",
+    "type": "function",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "func": "var apikey=\"eyJraWQiOiIyMDIwMDYyNDE4MzAiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC01NTAwMDdXSlUwIiwiaWQiOiJJQk1pZC01NTAwMDdXSlUwIiwicmVhbG1pZCI6IklCTWlkIiwiaWRlbnRpZmllciI6IjU1MDAwN1dKVTAiLCJnaXZlbl9uYW1lIjoiS2FsaWNoYXJhbiIsImZhbWlseV9uYW1lIjoiTmFnYWtyaXNobmFuIiwibmFtZSI6IkthbGljaGFyYW4gTmFnYWtyaXNobmFuIiwiZW1haWwiOiJrYWxpY2hhcmFuLm5AY29nbml6YW50LmNvbSIsInN1YiI6ImthbGljaGFyYW4ubkBjb2duaXphbnQuY29tIiwiYWNjb3VudCI6eyJ2YWxpZCI6dHJ1ZSwiYnNzIjoiZGRkMWFlMDA4ZjZkNGU0YWE5NzYzNWM0ZGUzMmUxZWIifSwiaWF0IjoxNTk1NTIyNjk0LCJleHAiOjE1OTU1MjYyOTQsImlzcyI6Imh0dHBzOi8vaWFtLmNsb3VkLmlibS5jb20vaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJieCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.wfKFLn5VSUvlHzJIA3wVx1fC8GtH-TFqBlcbGpniI0LlJ9bFDERGJO1e9AYIvEPqr5Hmj6UkRL_E-nGZIomclzEiEX16R-Rarn5VraQBFAM-0fM0Ih08kaDw0oY7RPO50ET9WXrWjbIBbHpEfnfZaZJQm0SHx8HuE16349SY8HAHiPSXcO1YG54B1IPpWaeAWQpehzzo3et9P43O7z34ji6D-twhZ-5IYT4BGQMCi1ttnbeSNb-EyaXJmu_78dP7poDBY7CgZk02JxlZrf-oGZ2hSYAhq2EmzU7Lup41LanItP2WCNymYdvPQ4E2t9unU09jTGuLyZPR_EAylNvlYw\";\nmsg.payload = { 'apikey' : apikey };\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 130,
+    "y": 440,
+    "wires": [
+      [
+        "123b9512.89093b"
+      ]
+    ]
+  },
+  {
+    "id": "6eb745f2.b1913c",
+    "type": "debug",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 530,
+    "y": 400,
+    "wires": []
+  },
+  {
+    "id": "5b76a5dd.ae083c",
+    "type": "wikisearch",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "limit": 1,
+    "format": "xml",
+    "profile": "fuzzy",
+    "x": 360,
+    "y": 60,
+    "wires": [
+      [
+        "8f226e31.68747"
+      ]
+    ]
+  },
+  {
+    "id": "cc2f4b04.c8ea98",
+    "type": "inject",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "topic": "",
+    "payload": "corn",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 90,
+    "y": 80,
+    "wires": [
+      [
+        "5b76a5dd.ae083c"
+      ]
+    ]
+  },
+  {
+    "id": "8f226e31.68747",
+    "type": "debug",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 550,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "2a031a87.51e576",
+    "type": "function",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "func": "var acc_tok=msg.payload.access_token;\nvar instance_id=\"a3e608eb-5bb0-4dcb-a4d9-235514f2e8e0\";\nmsg.headers = {'Content-Type': 'application/json','Authorization':'Bearer '+acc_tok,'ML-Instance-ID':instance_id};\nmsg.payload={\"input_data\": [{\"fields\": [\"Temparature\", \"Humidity \", \"Moisture\", \"Soil Type\", \"Crop Type\", \"Nitrogen\", \"Potassium\", \"Phosphorous\"],\"values\": [[23,34,45,\"black\",\"corn\",1,34,12],[23,34,45,\"Brown\",\"corn\",1,34,12]]}]};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 510,
+    "y": 280,
+    "wires": [
+      [
+        "7f2f9bad.ecb054"
+      ]
+    ]
+  },
+  {
+    "id": "7f2f9bad.ecb054",
+    "type": "http request",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "method": "POST",
+    "ret": "obj",
+    "paytoqs": false,
+    "url": "https://eu-gb.ml.cloud.ibm.com/v4/deployments/56b93eaf-1501-46be-a958-83e668ec3b99/predictions",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 690,
+    "y": 300,
+    "wires": [
+      [
+        "1ed739d5.032cc6",
+        "acf1d93a.b91248"
+      ]
+    ]
+  },
+  {
+    "id": "acf1d93a.b91248",
+    "type": "function",
+    "z": "855e6c6f.e9ce5",
+    "name": "",
+    "func": "msg= {\n    payload:\"Corn grows best in air temperatures from 60° to 95°F.\\nBased on your current crop and temprature values, you should consider using the fertilizer \" + msg.payload.predictions[0].values[0][0]\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 870,
+    "y": 300,
+    "wires": [
+      [
+        "262a41b7.93990e"
+      ]
+    ]
+  },
+  {
+    "id": "262a41b7.93990e",
+    "type": "ui_toast",
+    "z": "855e6c6f.e9ce5",
+    "position": "top right",
+    "displayTime": "15",
+    "highlight": "",
+    "sendall": true,
+    "outputs": 0,
+    "ok": "OK",
+    "cancel": "",
+    "raw": false,
+    "topic": "",
+    "name": "",
+    "x": 1100,
+    "y": 300,
+    "wires": []
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "af4494e5.25bb18",
+    "type": "tab",
+    "label": "Logo",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "4437482c.6cd138",
+    "type": "ui_template",
+    "z": "af4494e5.25bb18",
+    "group": "aed3565d.42b438",
+    "name": "Logo / Clock",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "format": "<script id=\"clockScript1\" type=\"text/javascript\">\n    var clockInterval;\n    $(function () {\n        if (clockInterval) return;\n\n        //add logo\n        var div1 = $('<div/>');\n        var logo = new Image();\n\n        logo.src = 'https://image.flaticon.com/icons/svg/2674/2674120.svg'\n        logo.height = 38;\n        logo.width = 38;\n        div1[0].style.margin = '200px';\n        //div1[0].style.margin-left='60px';\n        div1.append(logo);\n        \n        //add to toolbar when it's available\n        var addToToolbarTimer;\n        \n        function addToToolbar() {\n            var toolbar = $('.md-toolbar-tools');\n            \n            if(!toolbar.length) return;\n            \n            toolbar.append(div1);\n            //toolbar.append(div2);\n            //clearInterval(addToToolbarTimer);\n        }\n        addToToolbarTimer = setInterval(addToToolbar, 100);\n        \n    });\n</script>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": false,
+    "templateScope": "global",
+    "x": 290,
+    "y": 240,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "aed3565d.42b438",
+    "type": "ui_group",
+    "z": "",
+    "name": "Default",
+    "tab": "ff3cb2fe.d559f",
+    "order": 1,
+    "disp": false,
+    "width": "24",
+    "collapse": false
+  },
+  {
+    "id": "ff3cb2fe.d559f",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Home",
+    "icon": "dashboard",
+    "order": 4
+  }
+]

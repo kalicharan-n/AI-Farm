@@ -1,0 +1,1979 @@
+[
+  {
+    "id": "9ac0312f.0856",
+    "type": "tab",
+    "label": "AI Farm",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "323aa0f0.8a135",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 390,
+    "y": 960,
+    "wires": []
+  },
+  {
+    "id": "f4212adc.0e2448",
+    "type": "change",
+    "z": "9ac0312f.0856",
+    "name": "Chart Temperature",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.temp",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 410,
+    "y": 1020,
+    "wires": [
+      [
+        "7eeced36.8e2c64",
+        "433f4e4c.b7461"
+      ]
+    ]
+  },
+  {
+    "id": "a0ec88ce.4dd708",
+    "type": "change",
+    "z": "9ac0312f.0856",
+    "name": "Chart Humidity",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.humidity",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 380,
+    "y": 1080,
+    "wires": [
+      [
+        "75933c84.b71684",
+        "7eee853.088137c"
+      ]
+    ]
+  },
+  {
+    "id": "ac838df0.ef87c",
+    "type": "switch",
+    "z": "9ac0312f.0856",
+    "name": "Warn on High Values",
+    "property": "payload.d.temp",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "gt",
+        "v": "35",
+        "vt": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 400,
+    "y": 1140,
+    "wires": [
+      [
+        "49699e8a.c3d1b"
+      ]
+    ]
+  },
+  {
+    "id": "49699e8a.c3d1b",
+    "type": "template",
+    "z": "9ac0312f.0856",
+    "name": "Alert Msg",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "handlebars",
+    "syntax": "mustache",
+    "template": "Alert : Critical Value Detected {{payload.d.temp}}",
+    "output": "str",
+    "x": 600,
+    "y": 1140,
+    "wires": [
+      [
+        "f9eeefe5.2888f"
+      ]
+    ]
+  },
+  {
+    "id": "ad1845fd.310ad8",
+    "type": "mqtt in",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "topic": "iot-2/type/+/id/+/evt/+/fmt/json",
+    "qos": "2",
+    "datatype": "json",
+    "broker": "edac484c.cec658",
+    "x": 120,
+    "y": 1060,
+    "wires": [
+      [
+        "323aa0f0.8a135",
+        "f4212adc.0e2448",
+        "a0ec88ce.4dd708",
+        "ac838df0.ef87c",
+        "c2280f66.d864e",
+        "b3d2c343.0db31"
+      ]
+    ]
+  },
+  {
+    "id": "7eeced36.8e2c64",
+    "type": "ui_chart",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "group": "37d6c5cc.eec47a",
+    "order": 14,
+    "width": "5",
+    "height": "4",
+    "label": "Farm Live Temprature",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "50",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [
+      "#cec50f",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": false,
+    "outputs": 1,
+    "x": 660,
+    "y": 1000,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "75933c84.b71684",
+    "type": "ui_chart",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "group": "37d6c5cc.eec47a",
+    "order": 16,
+    "width": "5",
+    "height": "4",
+    "label": "Live Soil Humidity",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "100",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": false,
+    "outputs": 1,
+    "x": 630,
+    "y": 1080,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "f9eeefe5.2888f",
+    "type": "ui_toast",
+    "z": "9ac0312f.0856",
+    "position": "top right",
+    "displayTime": "5",
+    "highlight": "",
+    "outputs": 0,
+    "ok": "OK",
+    "cancel": "",
+    "topic": "",
+    "name": "",
+    "x": 810,
+    "y": 1140,
+    "wires": []
+  },
+  {
+    "id": "c2280f66.d864e",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "Format Time Series DB record",
+    "func": "msg.payload = {\n        time:     new Date().getTime(),\n        temp:     msg.payload.d.temp,\n        humidity: msg.payload.d.humidity\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 490,
+    "y": 1320,
+    "wires": [
+      [
+        "cae0e5a0.43cfc8",
+        "15b8814.257177f"
+      ]
+    ]
+  },
+  {
+    "id": "cae0e5a0.43cfc8",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 930,
+    "y": 1400,
+    "wires": []
+  },
+  {
+    "id": "15b8814.257177f",
+    "type": "cloudant out",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "cloudant": "",
+    "database": "historicaldata1",
+    "service": "ai-farm-app-cloudant-1593256399572-80225",
+    "payonly": true,
+    "operation": "insert",
+    "x": 600,
+    "y": 1420,
+    "wires": []
+  },
+  {
+    "id": "11dabe01.c28152",
+    "type": "change",
+    "z": "9ac0312f.0856",
+    "name": "image",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.image",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 370,
+    "y": 1200,
+    "wires": [
+      [
+        "1d131ae6.582d35"
+      ]
+    ]
+  },
+  {
+    "id": "1d131ae6.582d35",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "set Classifier",
+    "func": "//msg.filename=\"https://i.ibb.co/bzxHYMy/RS-Rust-1565-flip-LR.jpg\";\nmsg.params={};\nmsg.params[\"classifier_ids\"]=\"DefaultCustomModel_774057262\";\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 530,
+    "y": 1220,
+    "wires": [
+      [
+        "63c50c.9ec9aaf4"
+      ]
+    ]
+  },
+  {
+    "id": "63c50c.9ec9aaf4",
+    "type": "visual-recognition-v3",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "vr-service-endpoint": "https://api.eu-de.visual-recognition.watson.cloud.ibm.com",
+    "image-feature": "classifyImage",
+    "lang": "en",
+    "x": 730,
+    "y": 1220,
+    "wires": [
+      [
+        "55094925.fb5598"
+      ]
+    ]
+  },
+  {
+    "id": "84741589.6bc888",
+    "type": "ui_template",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "name": "",
+    "order": 19,
+    "width": "7",
+    "height": "5",
+    "format": "<div>\n<font color=\"#FF8C00\"><b>Plant Health:</b></font>\n<label for=\"plantpos\">{{msg.payload.name}} </label>   \n<br>\n<font color=\"#FF8C00\"><b>Possibility:</b></font>\n<label for=\"plantHealth\">{{msg.payload.poss}}% </label>\n<br>\n<font color=\"#FF8C00\"><b>Last Checked On:</b></font> \n<label for=\"timest\">{{msg.payload.P_date}}, {{msg.payload.P_time}} </label>   \n<br>\n<br>\n<img width=\"160\" height=\"140\" src=  {{msg.payload.img_src}} alt='Image not found'  />\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "x": 1440,
+    "y": 1200,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ee28fc46.3364e",
+    "type": "inject",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "topic": "",
+    "payload": "http://s3.jp-tok.cloud-object-storage.appdomain.cloud/cloud-object-storage-bw-cos-standard-ygl/RS_Rust%201564_flipLR.JPG",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 90,
+    "y": 1300,
+    "wires": [
+      [
+        "1d131ae6.582d35",
+        "d561608b.ca183"
+      ]
+    ]
+  },
+  {
+    "id": "2ad6ce77.2beca2",
+    "type": "image viewer",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "width": 160,
+    "data": "payload",
+    "dataType": "msg",
+    "x": 310,
+    "y": 1420,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "d561608b.ca183",
+    "type": "jimp-image",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "data": "payload",
+    "dataType": "msg",
+    "ret": "img",
+    "parameter1": "",
+    "parameter1Type": "msg",
+    "parameter2": "",
+    "parameter2Type": "msg",
+    "parameter3": "",
+    "parameter3Type": "msg",
+    "parameter4": "",
+    "parameter4Type": "msg",
+    "parameter5": "",
+    "parameter5Type": "msg",
+    "parameter6": "",
+    "parameter6Type": "msg",
+    "parameter7": "",
+    "parameter7Type": "msg",
+    "parameter8": "",
+    "parameter8Type": "msg",
+    "parameterCount": 0,
+    "jimpFunction": "none",
+    "selectedJimpFunction": {},
+    "x": 90,
+    "y": 1380,
+    "wires": [
+      [
+        "2ad6ce77.2beca2"
+      ]
+    ]
+  },
+  {
+    "id": "55094925.fb5598",
+    "type": "cloudant in",
+    "z": "9ac0312f.0856",
+    "name": "Search",
+    "cloudant": "f8f580f2.69f01",
+    "database": "diseaselist",
+    "service": "ai-farm-app-cloudant-1593256399572-80225",
+    "search": "_all_",
+    "design": "",
+    "index": "",
+    "x": 920,
+    "y": 1240,
+    "wires": [
+      [
+        "8b683ccf.6d329"
+      ]
+    ]
+  },
+  {
+    "id": "bc0e1ad0.4e0d98",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1330,
+    "y": 1320,
+    "wires": []
+  },
+  {
+    "id": "28cd5cc7.225304",
+    "type": "cloudant in",
+    "z": "9ac0312f.0856",
+    "name": "Retrieve documents",
+    "cloudant": "7312b6c9.2e2bb8",
+    "database": "mmm_test_1",
+    "service": "ai-farm-app-cloudant-1593256399572-80225",
+    "search": "_all_",
+    "design": "",
+    "index": "",
+    "x": 680,
+    "y": 1520,
+    "wires": [
+      [
+        "31974aac.48eaa6"
+      ]
+    ]
+  },
+  {
+    "id": "31974aac.48eaa6",
+    "type": "split",
+    "z": "9ac0312f.0856",
+    "name": "split out individual documents",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": "1",
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 680.1166076660156,
+    "y": 1588.8889465332031,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "6acc62c5.652c7c",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "id and rev to delete",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1170,
+    "y": 1800,
+    "wires": []
+  },
+  {
+    "id": "8b683ccf.6d329",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "Extract details",
+    "func": "var msgs=[];\nvar tot_count=msg.payload.length;\nvar hstatus=msg.result.images[0].classifiers[0].classes[0].class;\nvar poss=msg.result.images[0].classifiers[0].classes[0].score * 100;\nvar img_src=msg.result.images[0].source_url;\nvar P_time=new Date().toLocaleTimeString();\nvar P_date=new Date().toLocaleDateString();\nfor(var i=0;i<tot_count;i++)\n{\n    msgs.push({payload:msg.payload[i]});\n}\n\nfor(i=0;i<tot_count;i++)\n{\n    if(msgs[i].payload.name==hstatus)\n    {\n        msgs[i].payload.poss=poss;\n        msgs[i].payload.img_src=img_src;\n        msgs[i].payload.P_time=P_time;\n        msgs[i].payload.P_date=P_date;\n        return {payload:msgs[i].payload};\n    }\n}\nmsgs[0].payload.poss=poss;\nmsgs[0].payload.img_src=img_src;\nmsgs[0].payload.P_time=P_time;\nmsgs[0].payload.P_date=P_date;\nreturn {payload:msgs[0].payload};",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1120,
+    "y": 1260,
+    "wires": [
+      [
+        "bc0e1ad0.4e0d98",
+        "4d6284d6.267c6c",
+        "84741589.6bc888",
+        "9335c8b4.779cc8"
+      ]
+    ]
+  },
+  {
+    "id": "22a05242.2fe9ee",
+    "type": "ui_template",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "name": "",
+    "order": 20,
+    "width": "7",
+    "height": "5",
+    "format": "<div>\n<font color=\"#FF8C00\"><b>Cause:</b></font>\n<label for=\"plantpos\">{{msg.payload.cause.cause}}</label>   \n<br>\n<font color=\"#FF8C00\"><b>Details:</b></font>\n<label for=\"plantHealth\">{{msg.payload.description.description}}</label>\n<br>\n<font color=\"#FF8C00\"><b>How To Contol?</b></font> \n<label for=\"timest\">{{msg.payload.control.control}}</label>   \n<br>\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "x": 1620,
+    "y": 1260,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "58eb0df9.6b87c4",
+    "type": "watson-translator",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "action": "translate",
+    "basemodel": "ar-en",
+    "domain": "general",
+    "srclang": "en",
+    "destlang": "hi",
+    "password": "",
+    "apikey": "waqlt2Q78k67RrgoYQrag0KwdRcr1yWvN8t01BesN1MZ",
+    "custom": "",
+    "domainhidden": "general",
+    "srclanghidden": "en",
+    "destlanghidden": "hi",
+    "basemodelhidden": "ar-en",
+    "customhidden": "",
+    "filetype": "forcedglossary",
+    "trainid": "",
+    "lgparams2": true,
+    "service-endpoint": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/b6d10d8b-a425-496d-97ef-b00a3a759f80",
+    "x": 1210,
+    "y": 920,
+    "wires": [
+      [
+        "19c8af9c.72d81"
+      ]
+    ]
+  },
+  {
+    "id": "e118a51a.4b3a68",
+    "type": "watson-text-to-speech",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "lang": "en-GB",
+    "langhidden": "en-GB",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "voice": "en-GB_KateV3Voice",
+    "voicehidden": "",
+    "format": "audio/wav",
+    "password": "",
+    "apikey": "GqqVFT45ivO44kd3Dl4F-nab5_5MDkZq0v7cEmr2zWzJ",
+    "payload-response": false,
+    "service-endpoint": "https://api.eu-gb.text-to-speech.watson.cloud.ibm.com/instances/eaab2edd-aa56-4a45-bf67-fc808d9820c4",
+    "x": 820,
+    "y": 1320,
+    "wires": [
+      [
+        "c22f89a2.c0f9e8",
+        "cae0e5a0.43cfc8"
+      ]
+    ]
+  },
+  {
+    "id": "c22f89a2.c0f9e8",
+    "type": "ui_audio",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "group": "37d6c5cc.eec47a",
+    "voice": "en-US",
+    "always": "",
+    "x": 1020,
+    "y": 1320,
+    "wires": []
+  },
+  {
+    "id": "e110392d.493cd8",
+    "type": "ui_dropdown",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "label": "",
+    "tooltip": "",
+    "place": "Select Language",
+    "group": "37d6c5cc.eec47a",
+    "order": 1,
+    "width": "5",
+    "height": "1",
+    "passthru": true,
+    "multiple": false,
+    "options": [
+      {
+        "label": "Malayalam",
+        "value": "ml",
+        "type": "str"
+      },
+      {
+        "label": "Hindi",
+        "value": "hi",
+        "type": "str"
+      },
+      {
+        "label": "Tamil",
+        "value": "ta",
+        "type": "str"
+      },
+      {
+        "label": "italion",
+        "value": "it",
+        "type": "str"
+      }
+    ],
+    "payload": "",
+    "topic": "langdrop",
+    "x": 620,
+    "y": 900,
+    "wires": [
+      [
+        "cd573942.b86018",
+        "1a10698d.eb2a06",
+        "374c047e.34b19c",
+        "fb6dc944.8c2ea8",
+        "251ca5f2.a6419a",
+        "8a49f3c7.1ef96",
+        "ca19acf.341bf5"
+      ]
+    ]
+  },
+  {
+    "id": "1a10698d.eb2a06",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg = {\n       srclang:\"en\",\n       destlang:msg.payload,\n       topic:\"control\",\n       payload:global.get(\"g_control\")\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 990,
+    "y": 920,
+    "wires": [
+      [
+        "58eb0df9.6b87c4",
+        "5d9ea844.8030a8"
+      ]
+    ]
+  },
+  {
+    "id": "4d6284d6.267c6c",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "global.set(\"g_control\",msg.payload.control);\nglobal.set(\"g_img_src\",msg.payload.img_src);\nglobal.set(\"g_P_time\",msg.payload.P_time);\nglobal.set(\"g_P_date\",msg.payload.P_date);\nglobal.set(\"g_name\",msg.payload.name);\nglobal.set(\"g_poss\",msg.payload.poss);\nglobal.set(\"g_description\",msg.payload.description);\nglobal.set(\"g_cause\",msg.payload.cause);",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1090,
+    "y": 1200,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "4b031f89.ab0ab",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1770,
+    "y": 1080,
+    "wires": []
+  },
+  {
+    "id": "19c8af9c.72d81",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg.payload = {\n       control:msg.payload\n};\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1430,
+    "y": 920,
+    "wires": [
+      [
+        "a3c67d22.30e23"
+      ]
+    ]
+  },
+  {
+    "id": "d18282c1.5bce6",
+    "type": "mqtt out",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "topic": "iot-2/type/+/id/+/evt/+/fmt/json",
+    "qos": "",
+    "retain": "true",
+    "broker": "8b982f34.bc5b7",
+    "x": 1010,
+    "y": 1660,
+    "wires": []
+  },
+  {
+    "id": "cb2ceccc.21837",
+    "type": "inject",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "topic": "",
+    "payload": "Hello farmer ! Welcome to your E-Farm Your farm is healthy now ! Please check the below data from your farm",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 610,
+    "y": 1820,
+    "wires": [
+      [
+        "75bcb351.53508c"
+      ]
+    ]
+  },
+  {
+    "id": "374c047e.34b19c",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg = {\n       srclang:\"en\",\n       destlang:msg.payload,\n       topic:\"description\",\n       payload:global.get(\"g_description\")\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 990,
+    "y": 960,
+    "wires": [
+      [
+        "6e622f89.35f46"
+      ]
+    ]
+  },
+  {
+    "id": "6e622f89.35f46",
+    "type": "watson-translator",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "action": "translate",
+    "basemodel": "ar-en",
+    "domain": "general",
+    "srclang": "en",
+    "destlang": "hi",
+    "password": "",
+    "apikey": "waqlt2Q78k67RrgoYQrag0KwdRcr1yWvN8t01BesN1MZ",
+    "custom": "",
+    "domainhidden": "general",
+    "srclanghidden": "en",
+    "destlanghidden": "hi",
+    "basemodelhidden": "",
+    "customhidden": "",
+    "filetype": "forcedglossary",
+    "trainid": "",
+    "lgparams2": true,
+    "service-endpoint": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/b6d10d8b-a425-496d-97ef-b00a3a759f80",
+    "x": 1210,
+    "y": 960,
+    "wires": [
+      [
+        "2f5e1348.5a02fc"
+      ]
+    ]
+  },
+  {
+    "id": "fb6dc944.8c2ea8",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg = {\n       srclang:\"en\",\n       destlang:msg.payload,\n       topic:\"cause\",\n       payload:global.get(\"g_cause\")\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 990,
+    "y": 1000,
+    "wires": [
+      [
+        "2694ad68.0f6d72"
+      ]
+    ]
+  },
+  {
+    "id": "2694ad68.0f6d72",
+    "type": "watson-translator",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "action": "translate",
+    "basemodel": "ar-en",
+    "domain": "general",
+    "srclang": "en",
+    "destlang": "hi",
+    "password": "",
+    "apikey": "waqlt2Q78k67RrgoYQrag0KwdRcr1yWvN8t01BesN1MZ",
+    "custom": "",
+    "domainhidden": "general",
+    "srclanghidden": "en",
+    "destlanghidden": "hi",
+    "basemodelhidden": "",
+    "customhidden": "",
+    "filetype": "forcedglossary",
+    "trainid": "",
+    "lgparams2": true,
+    "service-endpoint": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/b6d10d8b-a425-496d-97ef-b00a3a759f80",
+    "x": 1210,
+    "y": 1000,
+    "wires": [
+      [
+        "1310842d.e6905c"
+      ]
+    ]
+  },
+  {
+    "id": "251ca5f2.a6419a",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg = {\n       srclang:\"en\",\n       destlang:msg.payload,\n       topic:\"name\",\n       payload:global.get(\"g_name\")\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 990,
+    "y": 1040,
+    "wires": [
+      [
+        "9c31e53f.d7a6d8"
+      ]
+    ]
+  },
+  {
+    "id": "9c31e53f.d7a6d8",
+    "type": "watson-translator",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "action": "translate",
+    "basemodel": "ar-en",
+    "domain": "general",
+    "srclang": "en",
+    "destlang": "hi",
+    "password": "",
+    "apikey": "waqlt2Q78k67RrgoYQrag0KwdRcr1yWvN8t01BesN1MZ",
+    "custom": "",
+    "domainhidden": "general",
+    "srclanghidden": "en",
+    "destlanghidden": "hi",
+    "basemodelhidden": "ar-en",
+    "customhidden": "",
+    "filetype": "forcedglossary",
+    "trainid": "",
+    "lgparams2": true,
+    "service-endpoint": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/b6d10d8b-a425-496d-97ef-b00a3a759f80",
+    "x": 1210,
+    "y": 1040,
+    "wires": [
+      [
+        "b95ceb0a.6b6798"
+      ]
+    ]
+  },
+  {
+    "id": "2f5e1348.5a02fc",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg.payload = {\n       description:msg.payload\n} ;\n//msg={topic:\"description\"};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1430,
+    "y": 960,
+    "wires": [
+      [
+        "a3c67d22.30e23"
+      ]
+    ]
+  },
+  {
+    "id": "1310842d.e6905c",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg.payload = {\n       cause:msg.payload\n} ;\n//msg={topic:\"cause\"};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1430,
+    "y": 1000,
+    "wires": [
+      [
+        "a3c67d22.30e23"
+      ]
+    ]
+  },
+  {
+    "id": "b95ceb0a.6b6798",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg.payload = {\n       name:msg.payload\n} ;\n//msg={topic:\"name\"};\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1430,
+    "y": 1040,
+    "wires": [
+      [
+        "a3c67d22.30e23"
+      ]
+    ]
+  },
+  {
+    "id": "a3c67d22.30e23",
+    "type": "join",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "mode": "custom",
+    "build": "object",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\\n",
+    "joinerType": "str",
+    "accumulate": false,
+    "timeout": "5",
+    "count": "4",
+    "reduceRight": false,
+    "reduceExp": "",
+    "reduceInit": "",
+    "reduceInitType": "",
+    "reduceFixup": "",
+    "x": 1580,
+    "y": 980,
+    "wires": [
+      [
+        "e3c1492.8b6b6b8",
+        "22a05242.2fe9ee"
+      ]
+    ]
+  },
+  {
+    "id": "5d9ea844.8030a8",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1230,
+    "y": 1100,
+    "wires": []
+  },
+  {
+    "id": "e3c1492.8b6b6b8",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1770,
+    "y": 960,
+    "wires": []
+  },
+  {
+    "id": "a629a350.9354f",
+    "type": "watson-translator",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "action": "translate",
+    "basemodel": "ar-en",
+    "domain": "general",
+    "srclang": "en",
+    "destlang": "hi",
+    "password": "",
+    "apikey": "waqlt2Q78k67RrgoYQrag0KwdRcr1yWvN8t01BesN1MZ",
+    "custom": "",
+    "domainhidden": "general",
+    "srclanghidden": "en",
+    "destlanghidden": "hi",
+    "basemodelhidden": "ar-en",
+    "customhidden": "",
+    "filetype": "forcedglossary",
+    "trainid": "",
+    "lgparams2": true,
+    "service-endpoint": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/b6d10d8b-a425-496d-97ef-b00a3a759f80",
+    "x": 950,
+    "y": 1860,
+    "wires": [
+      [
+        "6acc62c5.652c7c"
+      ]
+    ]
+  },
+  {
+    "id": "75bcb351.53508c",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg = {\n       srclang:\"en\",\n       destlang:\"ta\",\n       payload:msg.payload\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 770,
+    "y": 1780,
+    "wires": [
+      [
+        "a629a350.9354f"
+      ]
+    ]
+  },
+  {
+    "id": "433f4e4c.b7461",
+    "type": "ui_gauge",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "group": "37d6c5cc.eec47a",
+    "order": 15,
+    "width": "2",
+    "height": "4",
+    "gtype": "gage",
+    "title": "",
+    "label": "C",
+    "format": "{{msg.payload}}",
+    "min": 0,
+    "max": "50",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "10",
+    "seg2": "30",
+    "x": 610,
+    "y": 960,
+    "wires": []
+  },
+  {
+    "id": "7eee853.088137c",
+    "type": "ui_gauge",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "group": "37d6c5cc.eec47a",
+    "order": 17,
+    "width": "2",
+    "height": "4",
+    "gtype": "gage",
+    "title": "",
+    "label": "%",
+    "format": "{{msg.payload}}",
+    "min": 0,
+    "max": "100",
+    "colors": [
+      "#59c9bc",
+      "#d19223",
+      "#eb0000"
+    ],
+    "seg1": "10",
+    "seg2": "30",
+    "x": 610,
+    "y": 1040,
+    "wires": []
+  },
+  {
+    "id": "b3d2c343.0db31",
+    "type": "switch",
+    "z": "9ac0312f.0856",
+    "name": "Check if image received",
+    "property": "payload.d.image",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "nnull"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 190,
+    "y": 1200,
+    "wires": [
+      [
+        "11dabe01.c28152"
+      ]
+    ]
+  },
+  {
+    "id": "d9cdc9ff.a78528",
+    "type": "comment",
+    "z": "9ac0312f.0856",
+    "name": "Welcome Section",
+    "info": "",
+    "x": 100,
+    "y": 720,
+    "wires": []
+  },
+  {
+    "id": "41f88bbd.51a774",
+    "type": "ui_text",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "order": 3,
+    "width": "7",
+    "height": "2",
+    "name": "",
+    "label": "",
+    "format": "{{msg.payload}}",
+    "layout": "row-left",
+    "x": 1270,
+    "y": 860,
+    "wires": []
+  },
+  {
+    "id": "edcbc6cb.881fc8",
+    "type": "template",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "html",
+    "syntax": "plain",
+    "template": "<font size=\"2\">Hello Farmer ! Welcome to your E-Farm </font>\n<br>\n<font size=\"2\">Please scroll down to check your farm health</font>",
+    "output": "str",
+    "x": 480,
+    "y": 820,
+    "wires": [
+      [
+        "41f88bbd.51a774",
+        "de6baf8b.a37bf"
+      ]
+    ]
+  },
+  {
+    "id": "95dc6d48.d91c2",
+    "type": "watson-translator",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "action": "translate",
+    "basemodel": "ar-en",
+    "domain": "general",
+    "srclang": "en",
+    "destlang": "hi",
+    "password": "",
+    "apikey": "waqlt2Q78k67RrgoYQrag0KwdRcr1yWvN8t01BesN1MZ",
+    "custom": "",
+    "domainhidden": "general",
+    "srclanghidden": "en",
+    "destlanghidden": "hi",
+    "basemodelhidden": "ar-en",
+    "customhidden": "",
+    "filetype": "forcedglossary",
+    "trainid": "",
+    "lgparams2": true,
+    "service-endpoint": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/b6d10d8b-a425-496d-97ef-b00a3a759f80",
+    "x": 930,
+    "y": 760,
+    "wires": [
+      [
+        "41f88bbd.51a774",
+        "3e3233f0.d7f95c"
+      ]
+    ]
+  },
+  {
+    "id": "3e3233f0.d7f95c",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1130,
+    "y": 740,
+    "wires": []
+  },
+  {
+    "id": "8a49f3c7.1ef96",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "global.set(\"trans_lang\",msg.payload);\nmsg = {\n       srclang:\"en\",\n       destlang:msg.payload,\n       topic:\"w_descr\",\n       payload:global.get(\"g_welcome_msg\")\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 870,
+    "y": 860,
+    "wires": [
+      [
+        "95dc6d48.d91c2"
+      ]
+    ]
+  },
+  {
+    "id": "de6baf8b.a37bf",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "global.set(\"g_welcome_msg\",msg.payload);",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 670,
+    "y": 740,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "de94e961.ec5a58",
+    "type": "inject",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "topic": "",
+    "payload": "The weather in Coimbatore at coordinates: 11, 76.97 is Clouds (Scattered Clouds).",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 50,
+    "y": 960,
+    "wires": [
+      [
+        "771fedfb.336a14"
+      ]
+    ]
+  },
+  {
+    "id": "771fedfb.336a14",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg = {\n       srclang:\"en\",\n       destlang:\"ta\",\n       topic:\"control\",\n       payload:msg.payload\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 190,
+    "y": 920,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "90eb6a4.47d9b98",
+    "type": "ui_ui_control",
+    "z": "9ac0312f.0856",
+    "name": "Update tab",
+    "events": "connect",
+    "x": 290,
+    "y": 820,
+    "wires": [
+      [
+        "edcbc6cb.881fc8",
+        "61fce816.8bf568"
+      ]
+    ]
+  },
+  {
+    "id": "61fce816.8bf568",
+    "type": "change",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "English",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 440,
+    "y": 900,
+    "wires": [
+      [
+        "e110392d.493cd8"
+      ]
+    ]
+  },
+  {
+    "id": "cd573942.b86018",
+    "type": "switch",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "en",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 850,
+    "y": 1080,
+    "wires": [
+      [
+        "4e58e1d6.2a797"
+      ]
+    ]
+  },
+  {
+    "id": "4e58e1d6.2a797",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg.payload.control = {\n       control:global.get(\"g_control\"),\n       description:global.get(\"g_description\"),\n       cause:global.get(\"g_cause\"),\n       name:global.get(\"g_name\")\n} ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1010,
+    "y": 1140,
+    "wires": [
+      [
+        "4b031f89.ab0ab"
+      ]
+    ]
+  },
+  {
+    "id": "984e3b20.6d9608",
+    "type": "ui_text",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "order": 11,
+    "width": "4",
+    "height": "2",
+    "name": "Description",
+    "label": "",
+    "format": "<font color=\"#000066\">{{msg.payload.description}}</font>",
+    "layout": "row-left",
+    "x": 710,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "87e2c706.20c7a8",
+    "type": "ui_text",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "order": 7,
+    "width": "2",
+    "height": 1,
+    "name": "SunriseTime",
+    "label": "",
+    "format": "<i class=\"wi wi-owm-01d\"></i>&nbsp;<i class=\"fa fa-arrow-up\"></i>&nbsp;&nbsp;{{msg.location.sunrise}}",
+    "layout": "row-center",
+    "x": 710,
+    "y": 460,
+    "wires": []
+  },
+  {
+    "id": "4e6a78a4.3eac68",
+    "type": "ui_text",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "order": 10,
+    "width": "2",
+    "height": 1,
+    "name": "SunsetTime",
+    "label": "",
+    "format": "<i class=\"wi wi-wu-sunny\"></i>&nbsp;<i class=\"fa fa-arrow-down\"></i>&nbsp;&nbsp;{{msg.location.sunset}}",
+    "layout": "row-center",
+    "x": 710,
+    "y": 500,
+    "wires": []
+  },
+  {
+    "id": "e778965d.f921b8",
+    "type": "comment",
+    "z": "9ac0312f.0856",
+    "name": "OpenWeatherMap One Call API for Weather and Forecast",
+    "info": "",
+    "x": 250,
+    "y": 20,
+    "wires": []
+  },
+  {
+    "id": "18a3bd64.496a93",
+    "type": "ui_template",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "name": "Forecast2",
+    "order": 12,
+    "width": "3",
+    "height": 2,
+    "format": "<div style=\"height: 100%; justify-content: center; align-items: center;\">\n <div layout=\"rowicons\" layout-align=\"space-around start\" ng-repeat=\"data in msg.payload.rowicons\" style=\"font-size:150%;padding-top: 5px;padding-bottom: 5px\">\n  <span flex style=\"color: #097479;text-align: center\"><i class=\"wi wi-owm-{{data.cell07}}\"></i></span>\n  <span flex style=\"color: #097479;text-align: center\"><i class=\"wi wi-owm-{{data.cell08}}\"></i></span>\n  <span flex style=\"color: #097479;text-align: center\"><i class=\"wi wi-owm-{{data.cell09}}\"></i></span>\n  <span flex style=\"color: #097479;text-align: center\"><i class=\"wi wi-owm-{{data.cell10}}\"></i></span>\n </div>\n <div layout=\"rowtext\" layout-align=\"space-around start\" ng-repeat=\"data in msg.payload.rowtext\" style=\"line-height: 150%\">\n  <span flex style=\"color: #097479;text-align: center;font-size: 80%\">{{data.cell07}}</span>\n  <span flex style=\"color: #097479;text-align: center;font-size: 80%\">{{data.cell08}}</span>\n  <span flex style=\"color: #097479;text-align: center;font-size: 80%\">{{data.cell09}}</span>\n  <span flex style=\"color: #097479;text-align: center;font-size: 80%\">{{data.cell10}}</span>\n </div>\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": false,
+    "templateScope": "local",
+    "x": 820,
+    "y": 280,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "e3b01c38.f2e1b",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "Format forecast data",
+    "func": "var fcdata = {};\nvar units=flow.get('units');\nif (units===undefined)\n{\n  units=\"imperial\";\n}\n\nfunction formatTemp(high, low){\n    if (units == \"imperial\") {\n        if (low){\n          temp = parseFloat(high).toFixed() + '/' + parseFloat(low).toFixed()\n        }\n        else {\n          temp = parseFloat(high).toFixed() + '°C'\n        }\n    }\n    else { // metric\n//        temp = parseFloat(temp).toFixed(1) + '°C'\n        if (low){\n          temp = parseFloat(high).toFixed() + '/' + parseFloat(low).toFixed()\n        }\n        else {\n          temp = parseFloat(high).toFixed() + '°C'\n        }\n    }\n    return temp;\n}\nfunction dayName(unixTime){\n    var d = new Date(unixTime * 1000);\n    var weekday = new Array(7);\n        weekday[0] = \"Sun\";\n        weekday[1] = \"Mon\";\n        weekday[2] = \"Tue\";\n        weekday[3] = \"Wed\";\n        weekday[4] = \"Thu\";\n        weekday[5] = \"Fri\";\n        weekday[6] = \"Sat\";\n\n    return weekday[d.getDay()]\n}\nfunction timeConvert(UNIX_timestamp){\n  UNIX_timestamp=UNIX_timestamp +msg.data.timezone_offset;\n  var a = new Date(UNIX_timestamp * 1000);\n  var hour = a.getHours();\n  var suffix = \" am\";\n  if (hour >= 12) {\n    hour = hour - 12;\n    suffix = \" pm\";\n  }\n  if (hour === 0) {\n    hour = 12;\n  }\n  var min = a.getMinutes();\n  if (min < 10) {min = \"0\" + min;}\n//  return hour + ':' + min + suffix;\n  return hour + suffix;\n}\n// prepare forecast data for CSS based ui widget\n\nfcdata.payload = {\n  rowtext: {\n  \tdata01: {\n      cell01: timeConvert(msg.payload.hourly[1].dt),\n      cell02: timeConvert(msg.payload.hourly[2].dt),\n      cell03: timeConvert(msg.payload.hourly[3].dt),\n      cell04: timeConvert(msg.payload.hourly[4].dt),\n      cell05: timeConvert(msg.payload.hourly[5].dt),\n      cell06: timeConvert(msg.payload.hourly[6].dt),\n      cell07: dayName(msg.payload.daily[1].dt),\n      cell08: dayName(msg.payload.daily[2].dt),\n      cell09: dayName(msg.payload.daily[3].dt),\n      cell10: dayName(msg.payload.daily[4].dt),\n  \t},\n  \tdata02: {\n       cell01: formatTemp(msg.payload.hourly[1].temp),\n       cell02: formatTemp(msg.payload.hourly[2].temp),\n       cell03: formatTemp(msg.payload.hourly[3].temp),\n       cell04: formatTemp(msg.payload.hourly[4].temp),\n       cell05: formatTemp(msg.payload.hourly[5].temp),\n       cell06: formatTemp(msg.payload.hourly[6].temp),\n       cell07: formatTemp(msg.payload.daily[1].temp.max, msg.payload.daily[0].temp.min),\n       cell08: formatTemp(msg.payload.daily[2].temp.max, msg.payload.daily[1].temp.min),\n       cell09: formatTemp(msg.payload.daily[3].temp.max, msg.payload.daily[2].temp.min),\n       cell10: formatTemp(msg.payload.daily[4].temp.max, msg.payload.daily[3].temp.min),\n  \t}\n  },\n  rowicons: {\n  \tdata01: {\n  \t\tcell01: msg.payload.hourly[1].weather[0].icon,\n  \t\tcell02: msg.payload.hourly[2].weather[0].icon,\n  \t\tcell03: msg.payload.hourly[3].weather[0].icon,\n  \t\tcell04: msg.payload.hourly[4].weather[0].icon,\n  \t\tcell05: msg.payload.hourly[5].weather[0].icon,\n  \t\tcell06: msg.payload.hourly[6].weather[0].icon,\n  \t\tcell07: msg.payload.daily[1].weather[0].icon,\n  \t\tcell08: msg.payload.daily[2].weather[0].icon,\n  \t\tcell09: msg.payload.daily[3].weather[0].icon,\n  \t\tcell10: msg.payload.daily[4].weather[0].icon,\n  \t}\n  }\n}\n\nreturn fcdata;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 500,
+    "y": 280,
+    "wires": [
+      [
+        "18a3bd64.496a93",
+        "29f3a4a0.ed359c"
+      ]
+    ]
+  },
+  {
+    "id": "fb356a00.523868",
+    "type": "ui_text",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "order": 6,
+    "width": "1",
+    "height": 1,
+    "name": "Temperature",
+    "label": "",
+    "format": "<p style=\"font-size: 500%\">{{msg.payload.current.temp}}</p>",
+    "layout": "row-left",
+    "x": 810,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "412783a.29f277c",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "Format current data",
+    "func": "var icon = {};\n\nvar units=flow.get('units');\nif (units===undefined)\n{\n  units=\"imperial\";\n}\n\nfunction timeConvert(UNIX_timestamp){\n  var a = new Date(UNIX_timestamp * 1000);\n  var hour = a.getHours();\n  var suffix = \" am\";\n  if (hour >= 12) {\n    hour = hour - 12;\n    suffix = \" pm\";\n  }\n  if (hour === 0) {\n    hour = 12;\n  }\n  var min = a.getMinutes();\n  if (min < 10) {min = \"0\" + min;}\n  return hour + ':' + min + suffix;\n}\n\nvar degreesToCardinal = function(deg){\nif (deg>11.25 && deg<=33.75){\nreturn \"NNE\";\n  }else if (deg>33.75 && deg<56.25){\nreturn \"NE\";\n  }else if (deg>56.25 && deg<78.75){\nreturn \"ENE\";\n  }else if (deg>78.75 && deg<101.25){\nreturn \"E\";\n  }else if (deg>101.25 && deg<123.75){\nreturn \"ESE\";\n  }else if (deg>123.75 && deg<146.25){\nreturn \"SE\";\n  }else if (deg>146.25 && deg<168.75){\nreturn \"SSE\";\n  }else if (deg>168.75 && deg<191.25){\nreturn \"S\";\n  }else if (deg>191.25 && deg<213.75){\nreturn \"SSW\";\n  }else if (deg>213.75 && deg<236.25){\nreturn \"SW\";\n  }else if (deg>236.25 && deg<258.75){\nreturn \"WSW\";\n  }else if (deg>258.75 && deg<281.25){\nreturn \"W\";\n  }else if (deg>281.25 && deg<303.75){\nreturn \"WNW\";\n  }else if (deg>303.75 && deg<326.25){\nreturn \"NW\";\n  }else if (deg>326.25 && deg<348.75){\nreturn \"NNW\";\n  }else{\nreturn \"N\"; \n  }\n}\n\nif (units == \"imperial\")\n{\n  msg.payload.current.temp = msg.payload.current.temp.toFixed() + ' °C';\n  msg.payload.current.wind_speed = msg.payload.current.wind_speed.toFixed()*18/5;\n}\nelse // metric units\n{\n  msg.payload.current.temp = msg.payload.current.temp.toFixed(1) + ' °C';\n  msg.payload.current.wind_speed = msg.payload.current.wind_speed.toFixed(1)*18/5;\n}\n\nmsg.payload.current.wind_cardinal = degreesToCardinal(msg.payload.current.wind_deg);\nmsg.payload.current.sunrise = timeConvert(msg.payload.current.sunrise+msg.data.timezone_offset);\nmsg.payload.current.sunset = timeConvert(msg.payload.current.sunset+msg.data.timezone_offset);\n\nvar iconString = 'wi-owm-' + msg.payload.current.weather[0].icon + ' wi-4x';\nicon = {\n    ui_control: {\n        icon: iconString\n    }\n}; \n\nreturn [msg, icon];",
+    "outputs": 2,
+    "noerr": 0,
+    "x": 490,
+    "y": 200,
+    "wires": [
+      [
+        "fb356a00.523868",
+        "951285a3.1ec868",
+        "987ce6f4.a279d8"
+      ],
+      [
+        "41f2a5ef.a54e8c"
+      ]
+    ]
+  },
+  {
+    "id": "98e67ccf.e93c4",
+    "type": "ui_ui_control",
+    "z": "9ac0312f.0856",
+    "name": "Update tab",
+    "events": "connect",
+    "x": 90,
+    "y": 240,
+    "wires": [
+      [
+        "c6d7b8a0.24f9b8",
+        "8cd150bd.8d947"
+      ]
+    ]
+  },
+  {
+    "id": "df82fc87.0de95",
+    "type": "link out",
+    "z": "9ac0312f.0856",
+    "name": "Refresh",
+    "links": [
+      "56a0e824.31f6e8"
+    ],
+    "x": 915,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "56a0e824.31f6e8",
+    "type": "link in",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "links": [
+      "df82fc87.0de95"
+    ],
+    "x": 35,
+    "y": 360,
+    "wires": [
+      [
+        "8cd150bd.8d947"
+      ]
+    ]
+  },
+  {
+    "id": "c6d7b8a0.24f9b8",
+    "type": "switch",
+    "z": "9ac0312f.0856",
+    "name": "tab focus",
+    "property": "tab",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "1",
+        "vt": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 260,
+    "y": 180,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "2156e163.229cbe",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 510,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "f30aea29.247548",
+    "type": "openweathermap",
+    "z": "9ac0312f.0856",
+    "name": "Current Weather",
+    "wtype": "onecall",
+    "lon": "",
+    "lat": "",
+    "city": "",
+    "country": "",
+    "language": "en",
+    "x": 280,
+    "y": 280,
+    "wires": [
+      [
+        "412783a.29f277c",
+        "e3b01c38.f2e1b",
+        "2156e163.229cbe"
+      ]
+    ]
+  },
+  {
+    "id": "8cd150bd.8d947",
+    "type": "openweathermap",
+    "z": "9ac0312f.0856",
+    "name": "Current Weather",
+    "wtype": "current",
+    "lon": "",
+    "lat": "",
+    "city": "Coimbatore",
+    "country": "India",
+    "language": "en",
+    "x": 200,
+    "y": 380,
+    "wires": [
+      [
+        "fa754b0b.632758",
+        "ee68d8c5.b8d678"
+      ]
+    ]
+  },
+  {
+    "id": "fa754b0b.632758",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "Format current data",
+    "func": "msg.location = {\n       lat:msg.location.lat,\n       lon:msg.location.lon,\n       sunrise:timeConvert(msg.payload.sunrise+msg.data.timezone),\n       sunset:timeConvert(msg.payload.sunset+msg.data.timezone)\n    } ;\n\nfunction timeConvert(UNIX_timestamp){\n  var a = new Date(UNIX_timestamp * 1000);\n  var hour = a.getHours();\n  var suffix = \" am\";\n  if (hour >= 12) {\n    hour = hour - 12;\n    suffix = \" pm\";\n  }\n  if (hour === 0) {\n    hour = 12;\n  }\n  var min = a.getMinutes();\n  if (min < 10) {min = \"0\" + min;}\n  return hour + ':' + min + suffix;\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 430,
+    "y": 440,
+    "wires": [
+      [
+        "f30aea29.247548",
+        "984e3b20.6d9608",
+        "87e2c706.20c7a8",
+        "4e6a78a4.3eac68",
+        "a8a1c3bc.6325"
+      ]
+    ]
+  },
+  {
+    "id": "a8a1c3bc.6325",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "global.set(\"w_description\",msg.payload.description)",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 530,
+    "y": 520,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ecea897c.8f6688",
+    "type": "ui_template",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "name": "Wind",
+    "order": 8,
+    "width": "2",
+    "height": "2",
+    "format": "<!--\npass msg.payload.degrees, msg.payload.speed, msg.payload.speed_unit\n-->\n<script>\n    // Watch the incoming message and convert the degrees to a human readable compass direction\n    (function(scope){\n        scope.$watch('msg', function(msg) {\n            if(typeof(msg) === \"object\"){\n                // Convert the degrees to cardinal directions\n                var deg = msg.payload.degrees;\n                var dirs = [\"N\",\"NNE\",\"NE\",\"ENE\",\"E\",\"ESE\",\"SE\",\"SSE\",\"S\",\"SSW\",\"SW\",\"WSW\",\"W\",\"WNW\",\"NW\",\"NNW\",\"N\"];\n                var idx = Math.round(deg*(dirs.length-1)/360);\n                scope.direction = dirs[idx];\n                \n                \n                // Keep track of the highest speed value, giving it 40 as a rough starting point.\n                // Works okay for MPH and KTS, but KMH will show purple at a lower speed than the rest\n                scope.max_val = (msg.payload.speed > scope.max_val ? msg.payload.speed : 40);\n                \n                scope.p_speed = msg.payload.speed;\n                scope.p_max_val = scope.max_val;\n                var low_colors = [\n                    '#FFFFFF', // white\n                    '#d6f7ff', // light blue\n                    '#85ffd2', // blue green\n                    '#61ff6e' // green 10mph\n                    ];\n                var high_colors = [\n                    '#61ff6e', // green 10mph\n                    '#d5ff61', // green yellow\n                    '#fffc61', // yellow\n                    '#ffe561', // yellow orange 20mph\n                    '#ffcd61', // orange\n                    '#ffad61', // orange red\n                    '#ff7661', // red\n                    '#ff61dd', // red purple\n                    '#e261ff' // purple\n                ];\n                \n                if(msg.payload.speed <= 10){\n                    scope.color = low_colors[Math.round(msg.payload.speed*(low_colors.length-1)/10)];\n                }else{\n                    scope.color = high_colors[Math.round(msg.payload.speed*(high_colors.length-1) / scope.max_val)];\n                }\n                \n                //$(\".compass_container\").css(\"background-color\",scope.color);\n            }\n    \t});\n    })(scope);\n    \n    // Hacks to improve the layout and make it scale\n    $(document).ready(function(){\n        setTimeout(function () {\n            // Remove the auto scrolling from the parent node\n            $(\".compass_container\").parent().css(\"overflow\",\"hidden\");\n        \n            // Adjust the color to match the theme base color by looking up the toolbar header background color;\n            $(\".compass_container .triangle\").css(\"border-bottom-color\",$(\"md-toolbar\").css(\"background-color\"));\n        \n            // Scale the compass into the box that it's being rendered in\n            // This CSS hack helps make sure the line & font size scales appropriately\n            // Based on the node's grid size\n            $(\".compass_container\").each(function(k,v){\n                var scaleWidth = $(v).parent().width() / $(v).width();\n                var scaleHeight = $(v).parent().height() / $(v).height();\n        \n                var translateX = ($(v).width() - $(v).parent().width()) / 2;\n                var translateY = ($(v).height() - $(v).parent().height()) / 2;\n        \n                $(v).css(\"transform\",\"translate(-\"+translateX+\"px,-\"+translateY+\"px) scale(\"+scaleWidth+\",\"+scaleHeight+\") \");\n            });\n            \n            $(\".compass_container\").css(\"display\",\"block\"); // Unhide it now that it's resized\n        }, 1000);\n    });\n</script>\n<style>\n     @import url(https://fonts.googleapis.com/css?family=Dosis:200,400,500,600);\n     \n     .compass_container{\n        transition: 1s ease-in-out;\n        position: relative;\n        display: none;\n        width: 500px;\n        height: 500px;\n        border-radius: 100%;\n        font-family: 'Dosis';\n        font-size: 80px;\n        box-shadow: inset 0px 0px 0px 30px #FF7F50; \n        background-color:{color};\n     }\n     \n     .compass_container .compass_header{\n        font-weight: bold;\n        color: red;\n        position: absolute;\n        text-align: center;\n        width: 100%;\n        font-size: 90%;\n        top: -15px;\n        \n     }\n     .compass_container .text_container{\n        height: 100%;\n        width: 100%;\n        padding: 0px;\n        display: block;\n        border-radius: 100%;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        align-items: center;\n     }\n     \n     .compass_container .arrow{\n        transition: 1s ease-in-out;\n        width: 100%;\n        height: 100%;\n        display: block;\n        color: red;\n        position: absolute;\n        top: 0;\n     }\n     \n     .compass_container .arrow .triangle{\n        width: 0;\n\t\theight: 0;\n\t\tborder-left: 45px solid transparent;\n\t\tborder-right: 45px solid transparent;\n\t\tborder-bottom: 90px solid black;\n\t\tposition: absolute;\n\t\ttop: -15px;\n\t\tleft: 50%;\n\t\tmargin-left: -45px;\n\t\tz-index: 99;\n     }\n</style>\n\n<div class=\"compass_container\" style=\"\">\n    <div class=\"compass_header\">N</div>\n  \n    <div class=\"nr-dashboard-text text_container\">\n    \n        <div class=\"direction\" style=\"font-size: 120%\">{{direction}}</div>\n        <div style=\"flex-direction: row; font-weight: bold;\">\n            <span style=\"font-size: 100%\">{{msg.payload.speed}}</span>\n            <span style=\"font-size: 75%\">{{msg.payload.speed_unit}}</span>\n        </div>\n    </div>\n    <div class=\"arrow\" style=\"transform: rotate({{msg.payload.degrees}}deg);\">\n      <div class=\"triangle\"></div>\n    </div>\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": false,
+    "templateScope": "local",
+    "x": 890,
+    "y": 160,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "951285a3.1ec868",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg = {\n    \"payload\": {\n        \"speed\":msg.payload.current.wind_speed,\n        \"speed_unit\":\"KMH\",\n        \"degrees\":msg.payload.current.wind_deg\n        \n    }\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 750,
+    "y": 160,
+    "wires": [
+      [
+        "ecea897c.8f6688",
+        "abc06c2e.96663"
+      ]
+    ]
+  },
+  {
+    "id": "29f3a4a0.ed359c",
+    "type": "ui_template",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "name": "Forecast2",
+    "order": 13,
+    "width": "7",
+    "height": 2,
+    "format": "<div style=\"height: 100%; justify-content: center; align-items: center;\">\n <div layout=\"rowicons\" layout-align=\"space-around start\" ng-repeat=\"data in msg.payload.rowicons\" style=\"font-size:150%;padding-top: 5px;padding-bottom: 5px\">\n  <span flex style=\"color: #FF6600;text-align: center\"><i class=\"wi wi-owm-{{data.cell01}}\"></i></span>\n  <span flex style=\"color: #FF6600;text-align: center\"><i class=\"wi wi-owm-{{data.cell02}}\"></i></span>\n  <span flex style=\"color: #FF6600;text-align: center\"><i class=\"wi wi-owm-{{data.cell03}}\"></i></span>\n  <span flex style=\"color: #FF6600;text-align: center\"><i class=\"wi wi-owm-{{data.cell04}}\"></i></span>\n  <span flex style=\"color: #FF6600;text-align: center\"><i class=\"wi wi-owm-{{data.cell05}}\"></i></span>\n  <span flex style=\"color: #FF6600;text-align: center\"><i class=\"wi wi-owm-{{data.cell06}}\"></i></span>\n </div>\n <div layout=\"rowtext\" layout-align=\"space-around start\" ng-repeat=\"data in msg.payload.rowtext\" style=\"line-height: 150%\">\n  <span flex style=\"color: #FF6600;text-align: center;\">{{data.cell01}}</span>\n  <span flex style=\"color: #FF6600;text-align: center\">{{data.cell02}}</span>\n  <span flex style=\"color: #FF6600;text-align: center\">{{data.cell03}}</span>\n  <span flex style=\"color: #FF6600;text-align: center\">{{data.cell04}}</span>\n  <span flex style=\"color: #FF6600;text-align: center\">{{data.cell05}}</span>\n  <span flex style=\"color: #FF6600;text-align: center\">{{data.cell06}}</span>\n </div>\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": false,
+    "templateScope": "local",
+    "x": 820,
+    "y": 320,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "abc06c2e.96663",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 1040,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "ca19acf.341bf5",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "global.set(\"trans_lang\",msg.payload);\nmsg = {\n       srclang:\"en\",\n       destlang:msg.payload,\n       topic:\"w_descr\",\n       payload:global.get(\"w_description\")\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 510,
+    "y": 680,
+    "wires": [
+      [
+        "b68f7c58.ac625"
+      ]
+    ]
+  },
+  {
+    "id": "b68f7c58.ac625",
+    "type": "watson-translator",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "action": "translate",
+    "basemodel": "ar-en",
+    "domain": "general",
+    "srclang": "en",
+    "destlang": "hi",
+    "password": "",
+    "apikey": "waqlt2Q78k67RrgoYQrag0KwdRcr1yWvN8t01BesN1MZ",
+    "custom": "",
+    "domainhidden": "general",
+    "srclanghidden": "en",
+    "destlanghidden": "hi",
+    "basemodelhidden": "ar-en",
+    "customhidden": "",
+    "filetype": "forcedglossary",
+    "trainid": "",
+    "lgparams2": true,
+    "service-endpoint": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/b6d10d8b-a425-496d-97ef-b00a3a759f80",
+    "x": 530,
+    "y": 620,
+    "wires": [
+      [
+        "baaa4cef.c86dc"
+      ]
+    ]
+  },
+  {
+    "id": "95df78c3.edb978",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 770,
+    "y": 620,
+    "wires": []
+  },
+  {
+    "id": "baaa4cef.c86dc",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "func": "msg.payload={description:msg.payload};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 570,
+    "y": 560,
+    "wires": [
+      [
+        "984e3b20.6d9608",
+        "95df78c3.edb978"
+      ]
+    ]
+  },
+  {
+    "id": "987ce6f4.a279d8",
+    "type": "ui_template",
+    "z": "9ac0312f.0856",
+    "group": "37d6c5cc.eec47a",
+    "name": "celcius icon",
+    "order": 9,
+    "width": "1",
+    "height": "1",
+    "format": "<div><span flex style=\"color: #097479;text-align: center\"><i class=\"icofont-celsius\"></i></span></div>\n  ",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "x": 1070,
+    "y": 100,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ee68d8c5.b8d678",
+    "type": "debug",
+    "z": "9ac0312f.0856",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 230,
+    "y": 480,
+    "wires": []
+  },
+  {
+    "id": "41f2a5ef.a54e8c",
+    "type": "ui_button",
+    "z": "9ac0312f.0856",
+    "name": "IconRefresh",
+    "group": "37d6c5cc.eec47a",
+    "order": 5,
+    "width": 2,
+    "height": 2,
+    "passthru": false,
+    "label": "",
+    "tooltip": "Refresh",
+    "color": "",
+    "bgcolor": "orange",
+    "icon": "fa-refresh fa-4x",
+    "payload": "true",
+    "payloadType": "bool",
+    "topic": "",
+    "x": 770,
+    "y": 220,
+    "wires": [
+      [
+        "df82fc87.0de95"
+      ]
+    ]
+  },
+  {
+    "id": "9335c8b4.779cc8",
+    "type": "function",
+    "z": "9ac0312f.0856",
+    "name": "Extract details",
+    "func": "msg.payload.cause= {cause:msg.payload.cause};\nmsg.payload.description= {description:msg.payload.description};\nmsg.payload.control= {control:msg.payload.control};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1360,
+    "y": 1260,
+    "wires": [
+      [
+        "22a05242.2fe9ee"
+      ]
+    ]
+  },
+  {
+    "id": "edac484c.cec658",
+    "type": "mqtt-broker",
+    "z": "",
+    "name": "",
+    "broker": "ydxdnw.messaging.internetofthings.ibmcloud.com",
+    "port": "1883",
+    "clientid": "a:ydxdnw:ESP32CAM",
+    "usetls": false,
+    "compatmode": false,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  },
+  {
+    "id": "37d6c5cc.eec47a",
+    "type": "ui_group",
+    "z": "",
+    "name": "Home",
+    "tab": "9c2967c3.5f49f8",
+    "order": 1,
+    "disp": true,
+    "width": "7",
+    "collapse": false
+  },
+  {
+    "id": "f8f580f2.69f01",
+    "type": "cloudant",
+    "z": "",
+    "host": "https://16ad429e-9d49-4534-afa9-7955a9981991-bluemix:b95ca428fb2cd18ae9106e393f14eb7c45d82fd58bb53c5a04f821607b0e268e@16ad429e-9d49-4534-afa9-7955a9981991-bluemix.cloudant.com",
+    "name": "cloudant-xh"
+  },
+  {
+    "id": "7312b6c9.2e2bb8",
+    "type": "cloudant",
+    "z": "",
+    "host": "myaccountname.cloudant.com",
+    "name": "My Cloudant account"
+  },
+  {
+    "id": "8b982f34.bc5b7",
+    "type": "mqtt-broker",
+    "z": "",
+    "name": "",
+    "broker": "ydxdnw.messaging.internetofthings.ibmcloud.com",
+    "port": "1883",
+    "clientid": "a:ydxdnw:ESP8266",
+    "usetls": false,
+    "compatmode": false,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  },
+  {
+    "id": "9c2967c3.5f49f8",
+    "type": "ui_tab",
+    "z": "",
+    "name": "AI Farm",
+    "icon": "fa-home",
+    "order": 1,
+    "disabled": false,
+    "hidden": false
+  }
+]

@@ -1,0 +1,275 @@
+[
+  {
+    "id": "8992a4f6.38a348",
+    "type": "tab",
+    "label": "Settings",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "911fc1ab.d2943",
+    "type": "debug",
+    "z": "8992a4f6.38a348",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 630,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "96a65d1c.bfc1e",
+    "type": "ui_form",
+    "z": "8992a4f6.38a348",
+    "name": "",
+    "label": "<font color=\"orange\"></b>Add/Update Information</b></font>",
+    "group": "edeca30.39f9d6",
+    "order": 3,
+    "width": "6",
+    "height": "6",
+    "options": [
+      {
+        "label": "Crop Name",
+        "value": "name",
+        "type": "text",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Planted Date",
+        "value": "date",
+        "type": "date",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Farm Area in Sq Ft",
+        "value": "area",
+        "type": "number",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Motor Capacity in litre per min.",
+        "value": "capacity",
+        "type": "number",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Motor Current Req(in Amps)",
+        "value": "amps",
+        "type": "number",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Motor Voltage Req(At Full Load)",
+        "value": "voltage",
+        "type": "number",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Soil Type",
+        "value": "soil",
+        "type": "text",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "SMS Notification",
+        "value": "msg",
+        "type": "switch",
+        "required": false,
+        "rows": null
+      }
+    ],
+    "formValue": {
+      "name": "",
+      "date": "",
+      "area": "",
+      "capacity": "",
+      "amps": "",
+      "voltage": "",
+      "soil": "",
+      "msg": false
+    },
+    "payload": "",
+    "submit": "submit",
+    "cancel": "",
+    "topic": "",
+    "x": 220,
+    "y": 280,
+    "wires": [
+      [
+        "6bc2114e.ecbb2"
+      ]
+    ]
+  },
+  {
+    "id": "6bc2114e.ecbb2",
+    "type": "function",
+    "z": "8992a4f6.38a348",
+    "name": "Format DB records",
+    "func": "msg.payload = {\n        time:     new Date().getTime(),\n        name:     msg.payload.name,\n        date:     msg.payload.date,\n        area:     msg.payload.area,\n        capacity:     msg.payload.capacity,\n        soil:     msg.payload.soil,\n        msg:     msg.payload.msg,\n        amps: msg.payload.amps,\n        voltage: msg.payload.voltage,\n    } ;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 390,
+    "y": 460,
+    "wires": [
+      [
+        "911fc1ab.d2943",
+        "a961d9f2.1da1d8",
+        "8134958.2b09f68"
+      ]
+    ]
+  },
+  {
+    "id": "a961d9f2.1da1d8",
+    "type": "cloudant out",
+    "z": "8992a4f6.38a348",
+    "name": "",
+    "cloudant": "",
+    "database": "setupinfo",
+    "service": "ai-farm-app-cloudant-1593256399572-80225",
+    "payonly": true,
+    "operation": "insert",
+    "x": 660,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "b6bae12b.fdb9f",
+    "type": "cloudant in",
+    "z": "8992a4f6.38a348",
+    "name": "Search",
+    "cloudant": "f8f580f2.69f01",
+    "database": "setupinfo",
+    "service": "ai-farm-app-cloudant-1593256399572-80225",
+    "search": "_all_",
+    "design": "",
+    "index": "",
+    "x": 160,
+    "y": 100,
+    "wires": [
+      [
+        "d18690e5.d0bd3"
+      ]
+    ]
+  },
+  {
+    "id": "d18690e5.d0bd3",
+    "type": "function",
+    "z": "8992a4f6.38a348",
+    "name": "Extract most recent record details",
+    "func": "var msgs=[];\nvar tot_count=msg.payload.length;\n\nfor(var i=0;i<tot_count;i++)\n{\n    msgs.push({payload:msg.payload[i]});\n}\n\nvar bigval=msgs[0].payload.time;\nvar pos=0;\n\nfor(i=0;i<tot_count;i++)\n{\n    if(msgs[i].payload.time>bigval)\n    {\n        bigval=msgs[i].payload.time;\n        pos=i;\n    }\n}\nmsg={\n    name:msgs[pos].payload.name,\n    date:msgs[pos].payload.date,\n    area:msgs[pos].payload.area,\n    capacity:msgs[pos].payload.capacity,\n    soil:msgs[pos].payload.soil,\n    msg:msgs[pos].payload.msg,\n    amps: msgs[pos].payload.amp,\n    voltage: msgs[pos].payload.voltage\n};\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 400,
+    "y": 140,
+    "wires": [
+      [
+        "9e0943bc.f0a66",
+        "96a65d1c.bfc1e"
+      ]
+    ]
+  },
+  {
+    "id": "9e0943bc.f0a66",
+    "type": "debug",
+    "z": "8992a4f6.38a348",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 690,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "efc4f2f3.2aab9",
+    "type": "ui_ui_control",
+    "z": "8992a4f6.38a348",
+    "name": "Update tab",
+    "events": "change",
+    "x": 110,
+    "y": 180,
+    "wires": [
+      [
+        "b6bae12b.fdb9f"
+      ]
+    ]
+  },
+  {
+    "id": "45bf773d.37ece8",
+    "type": "ui_toast",
+    "z": "8992a4f6.38a348",
+    "position": "dialog",
+    "displayTime": "3",
+    "highlight": "",
+    "sendall": false,
+    "outputs": 1,
+    "ok": "OK",
+    "cancel": "",
+    "raw": false,
+    "topic": "",
+    "name": "",
+    "x": 830,
+    "y": 320,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "8134958.2b09f68",
+    "type": "function",
+    "z": "8992a4f6.38a348",
+    "name": "confirmation message",
+    "func": "msg.payload=\"Values are updated\";\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 680,
+    "y": 300,
+    "wires": [
+      [
+        "45bf773d.37ece8"
+      ]
+    ]
+  },
+  {
+    "id": "edeca30.39f9d6",
+    "type": "ui_group",
+    "z": "",
+    "name": "Settings",
+    "tab": "b6fd6f20.40747",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "f8f580f2.69f01",
+    "type": "cloudant",
+    "z": "",
+    "host": "https://16ad429e-9d49-4534-afa9-7955a9981991-bluemix:b95ca428fb2cd18ae9106e393f14eb7c45d82fd58bb53c5a04f821607b0e268e@16ad429e-9d49-4534-afa9-7955a9981991-bluemix.cloudant.com",
+    "name": "cloudant-xh"
+  },
+  {
+    "id": "b6fd6f20.40747",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Settings",
+    "icon": "fa-user-circle-o",
+    "order": 5,
+    "disabled": false,
+    "hidden": false
+  }
+]
