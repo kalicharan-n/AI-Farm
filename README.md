@@ -11,7 +11,7 @@
 * Hardware Requirements
 * Software/Access Requirements
 * Circuit
-* Development setup
+* Development/Code setup
 * Release History
 * Planned for future
 
@@ -56,17 +56,51 @@ Developing IOT Based Intelligent Farm- For Better Irrigation, Crop Yield and Dis
  * [Twlio](https://www.twilio.com/) API access- for SMS services 
  * [IRRISAT](https://irrisat-cloud.appspot.com/api) API acccess- To get evapotranspiration rate for te given lattitude and longitude
  * [OpenWeather](https://openweathermap.org/api) API access- To retrieve weather informations (current weather, probability of precipitation and forecasting)
+ * Arduino IDE- for IOT device programming
  
 ## Circuit Setup
 
-ESP8266 Setup
+### ESP8266 Setup
 
 Here we are using two analog sensors(Soil moisture and Rain sensors). But, ESP8266 module has only one analog input (A0). So I Have connected the voltage pin of both sensors into data pins(D5,D6) to power up the sensors in run time. This will also reduce the total power consumption by the circuit.
 
 ![ESP8266 Circuit](/Images/ESP8266Circuit_Sensor.PNG)
 
-ESP32CAM Setup:
+### ESP32CAM Setup:
 
 Connect IO0 and GND pins while uploading the code, and remove the connection after uploading the code.
 
 ![ESP32CAM Circuit](https://www.elementzonline.com/image/catalog/Blog_images/esp32-CAM/esp32_ttl.png)
+
+## Development/Code setup
+
+### Upload the sketch to ESP8266
+Upload the source file in the /Src/ESP8266/ folder to your ESP8266 device using Arduino IDE
+Make sure to update the below lines with your details
+'''
+#define MQTT_HOST "<APPID>.messaging.internetofthings.ibmcloud.com"
+#define MQTT_PORT 1883
+#define MQTT_DEVICEID "d:<APPID>:<DEVICENAME>:<DEVICEID>"
+#define MQTT_USER "use-token-auth"
+#define MQTT_TOKEN "<TOKEN>"
+#define MQTT_TOPIC "iot-2/evt/status/fmt/json"
+#define MQTT_TOPIC_DISPLAY "iot-2/cmd/display/fmt/json"
+ 
+char ssid[] = "<>"; // your network SSID (name)
+char pass[] = "<>"; // your network password
+'''
+## Development/Code setup
+
+### Upload the sketch to ESP32CAM
+Upload the source file in the /Src/ESP32CAM/ folder to your ESP32CAM device using Arduino IDE
+Ind addtion to above MQTT informations, you need to update the below IBM clodant storage informations
+'''
+#define api_key="<api key>" //ibm clodant storage API key to get IAM token
+#define end_point="" //IBM object storage endpoint to store image
+ 
+'''
+### Setting Up Node Red
+
+Import all the node red flows in the folder 'NodeRedFlows' into your NodeRed. Once imported, make sure to install/ update the Twilio, watson and openweather API keys.
+
+If you imported everything correctly, you should see the below pages in your node red application.
