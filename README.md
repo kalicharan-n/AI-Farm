@@ -1,4 +1,4 @@
-# Ai Farm using IBM Cloud- Call for code 2020
+# AI Farm using IBM Cloud- Call for code 2020
 
 ![Header Image](/Images/header.png)
 
@@ -103,4 +103,13 @@ Ind addtion to above MQTT informations, you need to update the below IBM clodant
 
 Import all the node red flows in the folder 'NodeRedFlows' into your NodeRed. Once imported, make sure to install/ update the Twilio, watson and openweather API keys.
 
-If you imported everything correctly, you should see the below pages in your node red application.
+If you imported everything correctly, you should see the below pages in your node red application.(Best viewd in mobile phone)
+
+## Home Page
+![home](/Images/UISample/homepage.png)
+## Smart Irrigation Control Page
+![irrigation](/Images/UISample/irrigation.png)
+## Historical data Page
+![history](/Images/UISample/histrical.png)
+## Settings Page
+![Settings](/Images/UISample/settings.png)
