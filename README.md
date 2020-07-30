@@ -16,7 +16,7 @@
 * Planned for future
 
 ## Problem Statement
-Due to the change in unpridictable seasons, a farmer cant get better result by using his farm maintenance and irrigation techniques that he learned. Also, one of the key reasons for the shrinking ground water level is the cropping pattern, which is skewed toward crops that use more water. i.e. water requirement will vary based on crop selection and the evapotranspiration.  There are some solutions available, but, a farmer needs to invest lot of money in purchasing the hardware's and they need to replace their existing products with new one. Also those hardwards cant think, they will just do what you instruct you do to. 
+Due to the change in unpridictable seasons, a farmer cant get better result by using his farm maintenance and irrigation techniques that he learned. Also, one of the key reasons for the shrinking ground water level is the cropping pattern, which is skewed toward crops that use more water. i.e. water requirement will vary based on crop selection and the evapotranspiration.  There are some solutions available, but, a farmer needs to invest lot of money in purchasing the hardware's and they need to replace their existing products with new one. Also those hardware's cant think, they will just do what you instruct you do to. 
 
 Also, most of the manuals, operating procedure and farming knowledge base is available only in English, which most farmers in the world cant understand.
 
