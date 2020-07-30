@@ -72,6 +72,12 @@ Connect IO0 and GND pins while uploading the code, and remove the connection aft
 
 ![ESP32CAM Circuit](https://www.elementzonline.com/image/catalog/Blog_images/esp32-CAM/esp32_ttl.png)
 
+### Actual Setup Images
+
+![setup](/Images/RawSetupImages/setup.png)
+![soil](/Images/RawSetupImages/soil.png)
+![dht](/Images/RawSetupImages/dht.png)
+
 ## Development/Code setup
 
 ### Upload the sketch to ESP8266
