@@ -45,4 +45,4 @@ Developing IOT Based Intelligent Farm- For Better Irrigation, Crop Yield and Dis
 
 ## Architecture
 
-![Architecture Image](/Images/arch.png)
+![Architecture Image](/Images/arch.PNG)
