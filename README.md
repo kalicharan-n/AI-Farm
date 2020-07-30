@@ -9,24 +9,11 @@
 * Proposed Solution
 * Architecture
 * Hardware Requirements
-* Software Requirements
+* Software/Access Requirements
 * Circuit
 * Development setup
 * Release History
 * Planned for future
-## Hardware Requirements
- * ESP32 CAM
- * ESP8266
- * Soil Mositure Sensor 
- * DHT11/22 temprature and humidity sensor
- * Rain sensor
- * Water pump
- * Water tube
- * Solar power supply/battery
- * PVC Pipe or wood for mounting the sensors and microcontrollers
- 
- ![Product Image](/Images/Products.png)
-
 
 ## Problem Statement
 Due to the change in unpridictable seasons, a farmer cant get better result by using his farm maintenance and irrigation techniques that he learned. Also, one of the key reasons for the shrinking ground water level is the cropping pattern, which is skewed toward crops that use more water. i.e. water requirement will vary based on crop selection and the evapotranspiration.  There are some solutions available, but, a farmer needs to invest lot of money in purchasing the hardware's and they need to replace their existing products with new one. Also those hardwards cant think, they will just do what you instruct you do to. 
@@ -46,3 +33,27 @@ Developing IOT Based Intelligent Farm- For Better Irrigation, Crop Yield and Dis
 ## Architecture
 
 ![Architecture Image](/Images/arch.PNG)
+
+## Hardware Requirements
+ * ESP32 CAM
+ * ESP8266
+ * Soil Mositure Sensor 
+ * DHT11/22 temprature and humidity sensor
+ * Rain sensor
+ * Water pump
+ * Water tube
+ * Solar power supply/battery
+ * PVC Pipe or wood for mounting the sensors and microcontrollers
+ 
+ ![Product Image](/Images/Products.png)
+ 
+ ## Software/Access Requirements
+ 
+ * ![IBM developer account](https://cloud.ibm.com/login)
+  ** IBM Visual recogniztion API 
+  ** IBM Watson Services
+ * Node Red
+ * ![Twlio](https://www.twilio.com/) API access- for SMS services 
+ * ![IRRISAT](https://irrisat-cloud.appspot.com/api) API acccess- To get evapotranspiration rate for te given lattitude and longitude
+ * ![OpenWeather](https://openweathermap.org/api) API access- To retrieve weather informations (current weather, probability of precipitation and forecasting)
+ 
