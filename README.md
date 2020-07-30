@@ -63,7 +63,7 @@ ESP8266 Setup
 
 Here we are using two analog sensors(Soil moisture and Rain sensors). But, ESP8266 module has only one analog input (A0). So I Have connected the voltage pin of both sensors into data pins(D5,D6) to power up the sensors in run time. This will also reduce the total power consumption by the circuit.
 
-![ESP8266 Circuit](ESP8266Circuit_Sensor.PNG)
+![ESP8266 Circuit](/Images/ESP8266Circuit_Sensor.PNG)
 
 ESP32CAM Setup:
 
