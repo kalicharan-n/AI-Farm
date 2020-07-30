@@ -107,7 +107,7 @@ Ind addtion to above MQTT informations, you need to update the below IBM clodant
 
 Import all the node red flows in the folder 'NodeRedFlows' into your NodeRed. Once imported, make sure to install/ update the Twilio, watson and openweather API keys.
 
-If you imported everything correctly, you should see the below pages in your node red application.(Best viewd in mobile phone)
+If you imported everything correctly, you should see the below pages in your node red application.(Best viewd in mobile phone) (Note: Below screenshots were taken after few round of testing. That's why you are seeing values)
 
 #### Home Page
 ![home](/Images/UISample/homepage.png)
