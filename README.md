@@ -89,7 +89,6 @@ Make sure to update the below lines with your details
 char ssid[] = "<>"; // your network SSID (name)
 char pass[] = "<>"; // your network password
 ```
-## Development/Code setup
 
 ### Upload the sketch to ESP32CAM
 Upload the source file in the /Src/ESP32CAM/ folder to your ESP32CAM device using Arduino IDE
@@ -112,10 +111,11 @@ If you imported everything correctly, you should see the below pages in your nod
 ![history](/Images/UISample/histrical.png)
 #### Settings Page
 You can update your basic informations in the below screen
+
 ![Settings](/Images/UISample/settings.png)
 
  ## Planned Update for future
-  * Current solution is work with only one plot. Next upgrade will handle more number of sensors and devices.
+  * Current solution works with only one plot/area. Next upgrade will handle more number of sensors and devices to handle big farms.
   * Improve the water savings by analyzing future rain forecasts
   * Add the ability to IOT devices to decide the farm/irrigation control by communicating each other in the same network, to address any critical problem(like our spine)
   * Predicting the crop yield based on historical data set and help the farmer to pick next crop based on yield and crop rotation
