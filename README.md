@@ -4,9 +4,9 @@
 
 ##Contents
 
-> Hardware Requirements
-> Software Requirements
-> Circuit
-> Development setup
-> Release History
-> Planned for future
+* Hardware Requirements
+* Software Requirements
+* Circuit
+* Development setup
+* Release History
+* Planned for future
