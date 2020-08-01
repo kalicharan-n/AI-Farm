@@ -120,6 +120,9 @@ You can update your basic informations in the below screen
 
 ![Settings](/Images/UISample/settings.png)
 
+## Application URL
+[URL](https://ai-farm-app.eu-gb.mybluemix.net/ui/)
+
  ## Planned Update for future
   * Current solution works with only one plot/area. Next upgrade will handle more number of sensors and devices to handle big farms.
   * Improve the water savings by analyzing future rain forecasts
